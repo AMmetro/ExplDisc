@@ -95,9 +95,7 @@ export function ExpressTrack({
       <div
         className={classNames(
           'text-13 flex flex-row rounded-l-full items-center h-8',
-          daysLeft > 0 || reached 
-          ? 'bg-plum-light text-beet' 
-          : 'bg-grey-6 text-grey-3'
+          daysLeft > 0 ? 'bg-plum-light text-beet' : 'bg-grey-6 text-grey-3'
         )}
       >
         <div className="ml-4 mr-3 my-2">
@@ -118,7 +116,6 @@ export function ExpressTrack({
 
         <div className="mr-6 my-1 hover:text-orange-hover">
           <ExpressTooltip
-            reached={reached}
             daysLeft={daysLeft}
             message={
               <ExpressTooltipMessage
