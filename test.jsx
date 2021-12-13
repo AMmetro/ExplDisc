@@ -5,8 +5,5 @@ console.log('line line line line ')
 console.log('line 3')
 console.log('line line line line ')
 console.log('line 4')
-
-// @Override
 console.log('puch line puch line')
-
 console.log('just add ome more line')
