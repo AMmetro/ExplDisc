@@ -1,0 +1,2877 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+interface Base {
+  _type_: String
+}
+
+interface PaymentRequest {
+  paymentType: PaymentType
+}
+
+interface PaymentType {
+  _type_: String
+}
+
+type AbstractAddressDTO implements Base {
+  _type_: String
+  city: String
+  countryCode: String
+  county: String
+  postalCode: String
+  region: String
+  state: String
+  street1: String
+  street2: String
+  street3: String
+}
+
+type Address implements Base {
+  _type_: String
+  addressType: String
+  city: String
+  countryCode: String
+  county: String
+  id: String
+  partnerId: String
+  phoneNumber: String
+  postalCode: String
+  region: String
+  state: String
+  street1: String
+  street2: String
+  street3: String
+  taxCode: String
+}
+
+type AddressLookupResponseDTO {
+  address: Address
+}
+
+type AddressSearchResponseDTO {
+  resultCount: Int
+  results: [AddressSearchResultDTO]
+  totalCount: Int
+}
+
+type AddressSearchResultDTO {
+  address: String
+  addressLookupId: String
+  matchedIndexes: [[Int]]
+}
+
+type AvailableHostnamesResponse implements Base {
+  _type_: String
+  hostname: String
+  websites: [String]
+}
+
+type BankDraft implements PaymentType {
+  _type_: String
+  bankName: String
+}
+
+type BaseAddress implements Base {
+  _type_: String
+  city: String
+  countryCode: String
+  county: String
+  postalCode: String
+  region: String
+  state: String
+  street1: String
+  street2: String
+  street3: String
+}
+
+type BasePerson implements Base {
+  _type_: String
+  email: String
+  firstName: String
+  homePhone: String
+  id: Long!
+  imageUrl: String
+  lastName: String
+  partnerId: String
+  type: PersonType
+}
+
+type BaseVolumeReportDetail implements Base {
+  _type_: String
+  email: String
+  firstName: String
+  frontLineFirstName: String
+  frontLineLastName: String
+  lastName: String
+  level: Long
+  partnerId: String
+  partnerTop: String!
+  position: String
+  volume: Float
+}
+
+type BillingInformation implements Base {
+  _type_: String
+  address: BaseAddress
+  contactDetails: ContactDetails
+}
+
+type BusinessInformation implements Base {
+  _type_: String
+  businessName: String
+  incorporated: Boolean
+  taxFiledCity: String
+  taxId: String
+}
+
+type CallBackEmail implements Base {
+  _type_: String
+  callbackDate: LocalDate!
+  callbackTime: CallBackTime!
+  firstName: String
+  lastName: String
+  phone: String!
+}
+
+type CardPayment implements PaymentType {
+  _type_: String
+  cardName: String
+}
+
+type CareerPath implements Base {
+  _type_: String
+  bonusCriteriaKey: String
+  currentPosition: String
+  nextPosition: String
+}
+
+type CareerStatus implements Base {
+  _type_: String
+  ruleResult: TermResult
+  termResults: [KpiResult]
+}
+
+type Cart implements Base {
+  ASSIGNED_USER_ID: String
+  CREATOR_USER_ID: String
+  _type_: String
+  billingInformation: BillingInformation
+  businessUnit: BusinessUnit
+  cartId: String
+  cartPendingStatus: CartPendingStatus
+  cartType: CartType
+  childDetails: CartChildDetails
+  currencyCode: String
+  deliveryFee: BigDecimal
+  installmentSchedule: InstallmentSchedule
+  locale: CartLocale
+  orderType: CartOrderType
+  paymentType: PaymentType
+  productGroups: [CartProductGroup]
+  referral: CartReferral
+  sendPromotions: Boolean
+  sharedOn: ZonedDateTime
+  shippingInformation: ShippingInformation
+  taxes: BigDecimal
+  termsAndConditionsAccepted: Boolean
+  totalDisplayPrice: BigDecimal
+  totalPrice: BigDecimal
+  useShippingAsBillingAddress: Boolean
+}
+
+type CartChildDetails implements Base {
+  _type_: String
+  age: Int
+  dateOfBirth: LocalDate
+  firstName: String
+  lastName: String
+}
+
+type CartLocale implements Base {
+  _type_: String
+  countryCode: String
+  languageCode: String
+}
+
+type CartMetaData implements Base {
+  _type_: String
+  browserFingerprint: String
+  browserScreenColorDepth: Int
+  browserScreenHeight: Int
+  browserScreenWidth: Int
+  browserTimezone: String
+  errorCode: Status
+  errorMsg: String
+  userAgent: String
+  userIPAddress: String
+}
+
+type CartProduct implements Base {
+  _type_: String
+  availablePaymentOptions: [PaymentOption]
+  description: String
+  displayPrice: BigDecimal
+  price: BigDecimal
+  quantity: Int
+  shipmentOption: ShipmentOption
+  sku: String
+  totalDisplayPrice: BigDecimal
+  totalPrice: BigDecimal
+}
+
+type CartProductGroup implements Base {
+  _type_: String
+  paymentOption: PaymentOption
+  products: [CartProduct]
+  shipmentOption: ShipmentOption
+  totalDisplayPrice: BigDecimal
+  totalPrice: BigDecimal
+}
+
+type CartReferral implements Base {
+  _type_: String
+  partnerEmail: String
+  partnerId: String
+  partnerName: String
+  partnerUrl: String
+  readOnly: Boolean
+  referred: Boolean
+}
+
+type Check implements PaymentType {
+  _type_: String
+}
+
+type CheckoutConfirmation implements Base {
+  _type_: String
+  cart: Cart
+  orderDetails: [CheckoutOrderDetail]
+}
+
+type CheckoutOrderDetail implements Base {
+  _type_: String
+  cartProductGroups: [CartProductGroup]
+  installmentSchedule: InstallmentSchedule
+  mercadoVoucher: MercadoVoucherDTO
+  orderId: String
+  paymentOption: PaymentOption
+  shippingCharge: String
+  taxCharge: String
+  totalPrice: String
+}
+
+type CheckoutStateResponseDTO {
+  state: CheckoutProcessStateDTO
+}
+
+type ContactDetails implements Base {
+  _type_: String
+  alternativePhoneNumber: String
+  dateOfBirth: LocalDate
+  email: String
+  euroSocialSecurityNumber: String
+  firstName: String
+  gender: Gender
+  lastName: String
+  phoneNumber: String
+  placeOfBirth: String
+}
+
+type ContactUsEmail implements Base {
+  _type_: String
+  apartment: String
+  childBirthday: String
+  childFirstName: String
+  childLastName: String
+  city: String
+  emailAddress: String!
+  existingCustomer: Boolean!
+  firstName: String
+  howHear: HowHear
+  lastName: String
+  message: String
+  partnerEmailAddress: String
+  partnerFullName: String
+  partnerId: String
+  phone: String
+  postalCode: String
+  region: String
+  state: String
+  street: String
+}
+
+type ContributorDetail implements Base {
+  _type_: String
+  email: String
+  firstName: String
+  frontLineFirstName: String
+  frontLineLastName: String
+  imageUrl: String
+  lastName: String
+  level: Long
+  partnerId: String
+  partnerTop: String!
+  position: String
+  volume: Float
+}
+
+type Control implements Base {
+  _type_: String
+  luhncheck: Boolean
+  section: String
+  typeahead: Boolean
+}
+
+type Country implements Base {
+  _type_: String
+  active: Boolean
+  countryCode: String
+  countryId: String
+  currency: String
+  nsaCountryId: String
+}
+
+type CountryPrice implements Base {
+  _type_: String
+  available: Int
+  countryCode: String
+  countryId: String
+  currency: String
+  description: String
+  prices: [Price]
+  status: String
+}
+
+type CustomerAccountDetails implements Base {
+  _type_: String
+  countryCode: String
+  dateOfBirth: LocalDate
+  firstName: String
+  languageCode: String
+  lastName: String
+  phoneNumber: String
+}
+
+type CustomerBrowser implements Base {
+  _type_: String
+  fingerprint: String
+  screenColorDepth: Int
+  screenHeight: Int
+  screenWidth: Int
+  timezone: String
+}
+
+type Dashboard implements Base {
+  _type_: String
+  careerPath: CareerPath
+  clubLevel: Int
+  lastUpdatedDate: LocalDateTime
+  monthlyNewTeamMembers: Int
+  monthlySales: Int
+  partnerId: String
+  performanceBonus: PerformanceBonus
+  promoteOutBonus: PromoteOutBonus
+  purchaseVolume: PurchaseVolume
+  upcomingShipments: Int
+}
+
+type EditSubscriptionOptionsResponse {
+  canBeCanceledAfterFinalPayment: Boolean!
+  canBeCanceledImmediately: Boolean!
+  canBeDelayed: Boolean!
+  canBePayedImmediatelyAndCanceled: Boolean!
+  canBeReordered: Boolean!
+  canBeRestarted: Boolean!
+  canBeReturned: Boolean!
+  canBeRushed: Boolean!
+  canChangeAddress: Boolean!
+  canChangePayment: Boolean!
+  finalInstallmentPaymentDate: LocalDate
+  nextShipmentDate: LocalDate
+  remainingInstallmentTotal: BigDecimal
+}
+
+type EmailValidationResponseDTO {
+  emailIsValid: Boolean
+}
+
+type ErrorQueueOrderSummary implements Base {
+  _type_: String
+  aroNumber: String
+  assignedUserId: String
+  billingInformation: BillingInformation
+  cartId: String
+  cartLocale: CartLocale
+  cartProductGroups: [CartProductGroup]
+  cartReferral: CartReferral
+  cartType: CartType
+  checkoutProcessKey: String
+  creatorUserId: String
+  currencyCode: String
+  errorCode: String
+  errorMsg: String
+  externalOrderId: String
+  installmentSchedule: InstallmentSchedule
+  leadType: LeadType
+  lifeCycle: OrderLifeCycle
+  orderId: String
+  orderStatus: String
+  orderType: CartOrderType
+  paymentOption: PaymentOption
+  riskAmount: String
+  shippingCharge: String
+  shippingInformation: ShippingInformation
+  submissionDate: LocalDateTime
+  taxCharge: String
+  totalPrice: String
+}
+
+type ErrorQueueResponse implements Base {
+  _type_: String
+  orderSummaries: [ErrorQueueOrderSummary]
+  totalCount: Int
+}
+
+type Field implements Base {
+  _type_: String
+  dynamic: Boolean
+  example: String
+  fieldName: String
+  mandatory: Boolean
+  readOnly: Boolean
+  regex: String
+  visible: Boolean
+}
+
+type FieldValue implements Base {
+  _type_: String
+  name: String
+  value: String
+}
+
+type FilterOptions implements Base {
+  _type_: String
+  countryCode: ListValues
+  levels: IntervalValues
+  orderStatus: ListValues
+  partnerSID: ListValues
+  pbPercent: IntervalValues
+  pobPercent: IntervalValues
+  position: ListValues
+  pvPercent: IntervalValues
+}
+
+type FiscalCodeRequest implements Base {
+  _type_: String
+  dateOfBirth: LocalDate
+  firstName: String
+  fiscalCode: String
+  gender: Gender
+  lastName: String
+  placeOfBirth: String
+}
+
+type Form implements Base {
+  _type_: String
+  controls: [Control]
+  fields: [Field]
+  formName: String
+  geo: GeoDefinition
+}
+
+type GeoDefinition implements Base {
+  _type_: String
+  displayCountry: String
+  iso2: String
+  iso3: String
+}
+
+type HostnameLookupResponseDTO {
+  email: String
+  firstName: String
+  fullName: String
+  hostname: String
+  imageUrl: String
+  lastName: String
+  partnerId: String
+  phone: String
+}
+
+type InstallmentDetail implements Base {
+  _type_: String
+  installmentDate: LocalDate
+  installmentTotal: BigDecimal
+}
+
+type InstallmentSchedule implements Base {
+  _type_: String
+  installmentDetails: [InstallmentDetail]
+}
+
+type Interval {
+  from: Int
+  to: Int
+}
+
+type IntervalValues {
+  extraInfo: String
+  label: String
+  suffix: String
+  values: Interval
+}
+
+type Invoice implements Base {
+  _type_: String
+  balanceDue: Float
+  dateCreated: LocalDate
+  id: String
+  partnerId: String
+  timeCreated: String
+  totalAmount: Float
+}
+
+type JpError {
+  details: String
+  message: String
+  status: Int
+  translationKey: String
+}
+
+type KpiData implements Base {
+  _type_: String
+  data: Float
+  timePeriod: DataWindow
+}
+
+type KpiResult implements Base {
+  _type_: String
+  data: KpiData
+  name: String
+  result: Boolean
+  salience: Float
+  threshold: Float
+  type: KpiType
+  weight: Float
+}
+
+type Language implements Base {
+  _type_: String
+  languageCode: String
+  nsaLanguageId: String
+}
+
+type LegPartner implements Base {
+  _type_: String
+  firstName: String
+  id: String
+  imageUrl: String
+  lastName: String
+  sponsorId: String
+}
+
+type ListValues {
+  filterType: String
+  label: String
+  type: ListValueType
+  values: [ObjectScalar]
+}
+
+type MercadoCash implements PaymentType {
+  _type_: String
+  storeName: String
+}
+
+type MercadoVoucherDTO {
+  downloadUrl: String
+  expiryDate: LocalDate
+}
+
+#Mutation root
+type Mutation {
+  activateAccount(key: String!, locale: String!): ResponseWrapper_Boolean
+  addPersonImage(
+    input: FileUploadInputDTOInput
+    partnerId: String
+  ): ResponseWrapper_Void
+  addProductToCart(
+    cartType: CartType
+    input: AddProductToCartInput
+  ): ResponseWrapper_Cart
+  addProductToSharedCart(
+    cartId: String
+    input: AddProductToCartInput
+  ): ResponseWrapper_Cart
+  addProductsToCart(input: [AddProductToCartInput]): ResponseWrapper_Cart
+  addProductsToSharedCart(
+    cartId: String
+    input: [AddProductToCartInput]
+  ): ResponseWrapper_Cart
+  assignCartReferralFlat(
+    cartId: String
+    input: [FieldValueInput]
+  ): ResponseWrapper_List_FieldValue
+  calculateTaxesAndFees(
+    input: CalculateTaxesAndFeesRequestInput
+  ): ResponseWrapper_Cart
+  calculateTaxesAndFeesInSharedCart(
+    cartId: String
+    input: CalculateTaxesAndFeesRequestInput
+  ): ResponseWrapper_Cart
+  cancelPartnerPortal(partnerId: String): ResponseWrapper_Void
+  cancelSubscription(
+    browserTime: LocalDateTime
+    input: CancelSubscriptionDTOInput
+    subscriptionId: String
+  ): ResponseWrapper_Void
+  changePassword(input: PasswordChangeDTOInput): ResponseWrapper_Boolean
+  changePaymentOption(input: ChangePaymentOptionInput): ResponseWrapper_Cart
+  changePaymentOptionInSharedCart(
+    cartId: String
+    input: ChangePaymentOptionInput
+  ): ResponseWrapper_Cart
+  changeSharedCartOrderType(
+    cartId: String
+    input: ChangeSharedCartOrderTypeInput
+  ): ResponseWrapper_Cart
+  changeSharedCartPendingStatus(
+    cartId: String
+    input: ChangeSharedCartPendingStatusInput
+  ): ResponseWrapper_Cart
+  checkoutCurrentCartFlat(
+    input: [FieldValueInput]
+  ): ResponseWrapper_List_FieldValue
+  confirmCreateSharedCart(cartId: String): ResponseWrapper_Cart
+  createReOrderCart(
+    cartType: CartType
+    input: [AddProductToCartInput]
+  ): ResponseWrapper_Cart
+  createSharedCart(input: CreateSharedCartInput): ResponseWrapper_Cart
+  delaySubscription(
+    browserTime: LocalDateTime
+    input: ChangeSubscriptionShipmentDateDTOInput
+    subscriptionId: String
+  ): ResponseWrapper_Void
+  deleteExpiredCarts: ResponseWrapper_Boolean
+  deleteExpiredOrders: ResponseWrapper_Boolean
+  deleteHsfCart: ResponseWrapper_Void
+  deletePersonImage(partnerId: String): ResponseWrapper_Void
+  deleteSharedCart(cartId: String): ResponseWrapper_Void
+  evictShopCache: ResponseWrapper_Boolean
+  finishPasswordReset(input: KeyAndPasswordVMInput): ResponseWrapper_Boolean
+  hsfSignUp(input: RegisterHSFInput): ResponseWrapper_Void
+  hsfSignUpFlat(input: [FieldValueInput]): ResponseWrapper_Void
+  impersonateLogout: ResponseWrapper_Void
+  impersonatePerson(username: String): ResponseWrapper_Void
+  initCartForDaoOrder(input: CreateCartForDaoOrderInput): ResponseWrapper_Cart
+  initHsfCart(input: AddChildDetailsInput): ResponseWrapper_Cart
+  mailCallBack(input: CallBackEmailInput): ResponseWrapper_Void
+  mailContactUs(input: ContactUsEmailInput): ResponseWrapper_Void
+  mailContactUsFlat(input: [FieldValueInput]): ResponseWrapper_Void
+  makeOnboardingPayment(
+    input: [FieldValueInput]
+  ): ResponseWrapper_PaymentConfirmation
+  onboardPartnerFlat(input: [FieldValueInput]): ResponseWrapper_Boolean
+  prepareSharedCartForCheckout(cartId: String): ResponseWrapper_Cart
+  registerCustomer(
+    input: RegisterCustomerInput
+    locale: String!
+  ): ResponseWrapper_Boolean
+  registerPartner(input: RegisterPartnerInput): ResponseWrapper_Boolean
+  registerPartnerFlat(input: [FieldValueInput]): ResponseWrapper_Boolean
+  removeMultipleProductsFromCart(
+    input: RemoveMultipleProductsFromCartInput
+  ): ResponseWrapper_Cart
+  removeMultipleProductsFromSharedCart(
+    cartId: String
+    input: RemoveMultipleProductsFromCartInput
+  ): ResponseWrapper_Cart
+  removeOnboardingPartner(email: String): ResponseWrapper_Boolean
+  removeOnboardingPartnerByCustomer(email: String): ResponseWrapper_Boolean
+  removeProductFromCart(input: RemoveProductFromCartInput): ResponseWrapper_Cart
+  removeProductFromSharedCart(cartId: String, sku: String): ResponseWrapper_Cart
+  renewPartnerFlat(input: [FieldValueInput]): ResponseWrapper_Boolean
+  requestPasswordReset(
+    locale: String!
+    loginName: String!
+  ): ResponseWrapper_Boolean
+  restartSubscription(
+    browserTime: LocalDateTime
+    input: RestartSubscriptionDTOInput
+    subscriptionId: String
+  ): ResponseWrapper_Void
+  resubmitOrder(orderId: String): ResponseWrapper_ErrorQueueOrderSummary
+  returnSubscription(
+    browserTime: LocalDateTime
+    input: ReturnSubscriptionInput
+    subscriptionId: String
+  ): ResponseWrapper_Void
+  rushSubscription(
+    browserTime: LocalDateTime
+    subscriptionId: String
+  ): ResponseWrapper_Void
+  signupPartnerPortal(partnerId: String): ResponseWrapper_Void
+  updateBillingInformation(input: BillingInformationInput): ResponseWrapper_Cart
+  updateBillingInformationFlat(
+    input: [FieldValueInput]
+  ): ResponseWrapper_List_FieldValue
+  updateBillingInformationInSharedCart(
+    cartId: String
+    input: BillingInformationInput
+  ): ResponseWrapper_Cart
+  updateBillingInformationInSharedCartFlat(
+    cartId: String
+    input: [FieldValueInput]
+  ): ResponseWrapper_List_FieldValue
+  updateCartProductQuantity(
+    input: UpdateCartProductQuantityInput
+  ): ResponseWrapper_Cart
+  updateCartReferralFlat(
+    input: [FieldValueInput]
+  ): ResponseWrapper_List_FieldValue
+  updateChildDetailsForSharedCart(
+    cartId: String
+    input: AddChildDetailsInput
+  ): ResponseWrapper_Cart
+  updateCustomerDetails(
+    email: String
+    input: [FieldValueInput]
+  ): ResponseWrapper_Person
+  updateCustomerEmail(
+    email: String
+    input: EmailChangeDTOInput
+  ): ResponseWrapper_Void
+  updateErrorQueueBillingInformation(
+    input: BillingInformationInput
+    orderId: String
+  ): ResponseWrapper_ErrorQueueOrderSummary
+  updateErrorQueueCartReferral(
+    input: CartReferralInput
+    orderId: String
+  ): ResponseWrapper_ErrorQueueOrderSummary
+  updateErrorQueueOrderLifeCycle(
+    lifeCycle: OrderLifeCycle
+    orderId: String
+  ): ResponseWrapper_ErrorQueueOrderSummary
+  updateErrorQueueShippingInformation(
+    input: ShippingInformationInput
+    orderId: String
+  ): ResponseWrapper_ErrorQueueOrderSummary
+  updatePartnerAddress(
+    input: [FieldValueInput]
+    partnerId: String
+  ): ResponseWrapper_Void
+  updatePartnerBusinessInformation(
+    input: [FieldValueInput]
+    partnerId: String
+  ): ResponseWrapper_Void
+  updatePartnerDetails(
+    input: [FieldValueInput]
+    partnerId: String
+  ): ResponseWrapper_Person
+  updatePartnerEmail(
+    input: EmailChangeDTOInput
+    partnerId: String
+  ): ResponseWrapper_Void
+  updatePartnerHostname(
+    hostname: String
+    partnerId: String
+  ): ResponseWrapper_Void
+  updatePartnerPayOutInformation(
+    input: [FieldValueInput]
+    partnerId: String
+  ): ResponseWrapper_Void
+  updatePartnerPublicInformation(
+    input: PartnerPublicInformationUpdateInput
+    partnerId: String
+  ): ResponseWrapper_Void
+  updatePartnerVOStatusFlat(
+    input: [FieldValueInput]
+    partnerId: String
+  ): ResponseWrapper_Boolean
+  updatePersonProfile(
+    email: String
+    input: ProfilePreferenceInput
+  ): ResponseWrapper_Void
+  updateProductQuantityInSharedCart(
+    cartId: String
+    quantity: Int
+    sku: String
+  ): ResponseWrapper_Cart
+  updateProductsQuantitiesInSharedCart(
+    cartId: String
+    input: [UpdateCartProductQuantityInput]
+  ): ResponseWrapper_Cart
+  updateSharedCartCountry(
+    cartId: String
+    input: UpdateSharedCartCountryInput
+  ): ResponseWrapper_Cart
+  updateShippingInformation(
+    input: ShippingInformationInput
+  ): ResponseWrapper_Cart
+  updateShippingInformationFlat(
+    input: [FieldValueInput]
+  ): ResponseWrapper_List_FieldValue
+  updateShippingInformationInSharedCart(
+    cartId: String
+    input: ShippingInformationInput
+  ): ResponseWrapper_Cart
+  updateShippingInformationInSharedCartFlat(
+    cartId: String
+    input: [FieldValueInput]
+  ): ResponseWrapper_List_FieldValue
+  updateSubscriptionAddress(
+    browserTime: LocalDateTime
+    input: [FieldValueInput]
+    subscriptionId: String
+  ): ResponseWrapper_Void
+  updateSubscriptionPayment(
+    browserTime: LocalDateTime
+    input: [FieldValueInput]
+    subscriptionId: String
+  ): ResponseWrapper_Void
+  useShippingAsBillingAddress(input: Boolean!): ResponseWrapper_Cart
+  useShippingAsBillingAddressInSharedCart(
+    cartId: String
+    input: Boolean!
+  ): ResponseWrapper_Cart
+  validate(
+    validationRequest: ValidationRequestInput
+  ): ResponseWrapper_Validation
+  validateFiscalCode(input: FiscalCodeRequestInput): ResponseWrapper_Boolean
+}
+
+type NumberResponse implements Base {
+  _type_: String
+  amount: Float
+  count: Long
+}
+
+type OfflineVoucher implements Base {
+  _type_: String
+  downloadUrl: String
+  expiryDate: LocalDate
+  subscriptionId: String
+}
+
+type OnboardPartner implements Base {
+  _type_: String
+  bankAbiCode: String
+  bankAccountName: String
+  bankAccountNumber: String
+  bankAccountType: String
+  bankBicNumber: String
+  bankBranchNumber: String
+  bankCode: String
+  bankName: String
+  billingAddress: RegistrationAddress
+  billingFirstName: String
+  billingLastName: String
+  customerBrowser: CustomerBrowser
+  payment: PaymentRequest
+  returnUrl: String
+  sameAsContactAddress: Boolean
+  segment: Segment
+}
+
+type Order implements Base {
+  _type_: String
+  addressLine1: String
+  addressLine2: String
+  businessUnit: String
+  city: String
+  country: String
+  county: String
+  cycleNbr: Int
+  dateCreated: ZonedDateTime
+  freightAmount: Float
+  id: String
+  installmentNbr: Int
+  invoiceId: String
+  leadType: String
+  nbrInstallments: Int
+  orderType: String
+  paid: Boolean
+  partnerId: String
+  postalCode: String
+  returnAuthorizationNumber: String
+  shipmentName: String
+  shipmentPhone: String
+  state: String
+  subscriptionId: String
+  taxAmount: Float
+  totalAmount: Float
+}
+
+type OrderLine implements Base {
+  _type_: String
+  orderId: String
+  price: Float
+  pv: Float
+  quantity: Int
+  retailProfit: Float
+  shipDate: LocalDate
+  shipQuantity: Int
+  singleShip: Boolean
+  skuId: String
+}
+
+type PaidOrderDetail implements Base {
+  _type_: String
+  customerName: String
+  email: String
+  firstName: String
+  frontLineFirstName: String
+  frontLineLastName: String
+  hasPerformanceBonus: Boolean
+  hasPromoteOutBonus: Boolean
+  hasPurchaseVolume: Boolean
+  homeCountry: String
+  lastName: String
+  level: Long
+  orderCountry: String
+  orderId: String
+  partnerId: String
+  partnerTop: String!
+  partnerTopPosition: String
+  position: String
+  rank: Int
+  shipmentDate: LocalDate
+  skus: [String]
+  subscriptionId: String
+  volume: Float
+}
+
+type PartnerAccountDetails implements Base {
+  _type_: String
+  ethnicity: String
+  firstName: String
+  gender: Gender
+  languageCode: String
+  lastName: String
+  phoneNumber: String
+  socialSecurityNumber: String
+}
+
+type PartnerBankInformation implements Base {
+  _type_: String
+  bankAbiCode: String
+  bankAccountName: String
+  bankAccountNumber: String
+  bankAccountType: String
+  bankBicNumber: String
+  bankBranchNumber: String
+  bankCode: String
+  bankName: String
+  paperCheque: Boolean
+}
+
+type PartnerPCICompliance implements Base {
+  _type_: String
+  countryCode: String
+  email: String
+}
+
+type PartnerPublicInformationUpdate implements Base {
+  _type_: String
+  email: String
+  firstName: String
+  lastName: String
+  phoneNumber: String
+}
+
+type PartnerRenewal implements Base {
+  _type_: String
+  billingAddress: RegistrationAddress
+  firstName: String
+  lastName: String
+  partnerId: String
+  payment: PaymentRequest
+  sameAsContactAddress: Boolean
+}
+
+type PartnerSettings {
+  bankInformation: PartnerBankInformation
+  username: String
+}
+
+type PaymentConfirmation implements Base {
+  _type_: String
+  arpNumber: String
+  challengeToken: String
+  mercadoVoucher: MercadoVoucherDTO
+  offlinePayment: Boolean
+  paymentName: String
+  paymentStatus: PaymentStatus
+  paymentType: String
+  processorTransactionId: String
+  redirectUrl: String
+  soNumber: String
+}
+
+type PaymentInfo implements Base {
+  _type_: String
+  id: String
+  installmentNumber: Int
+  numberOfInstallments: Int
+  paid: Boolean
+  paymentDate: ZonedDateTime
+  totalAmount: Float
+}
+
+type PaymentMethod implements Base {
+  _type_: String
+  abbreviation: String
+  accountNumberEncrypted: String
+  accountNumberLastDigits: String
+  billingAddress: Address
+  expirationDate: String
+  firstName: String
+  lastName: String
+  partnerId: String
+  routingNumber: String
+  subscriptionId: String
+}
+
+type PaymentOptionDefinition implements Base {
+  _type_: String
+  abbreviation: String
+  geo: GeoDefinition
+  name: String
+  paymentFormDefinition: Form
+  paymentType: PaymentType
+}
+
+type PendingOrderDetail implements Base {
+  _type_: String
+  customerName: String
+  email: String
+  firstName: String
+  frontLineFirstName: String
+  frontLineLastName: String
+  homeCountry: String
+  lastName: String
+  level: Long
+  orderCountry: String
+  partnerId: String
+  partnerTop: String!
+  phoneNumber: String
+  position: String
+  shipmentDate: LocalDate
+  skus: [String]
+  state: String
+  subscriptionId: String
+  volume: Float
+}
+
+type PerformanceBonus implements Base {
+  _type_: String
+  excess: BigDecimal
+  insightText: String
+  insightValue: Int
+  legCount: Int
+  legPartners: [LegPartner]
+  maxLegCount: Int
+  myTeamCloseToQualified: Int
+  myTeamQualified: Int
+  paid: BigDecimal
+  pending: Float
+  percentage: Int
+  total: BigDecimal
+  visible: Boolean!
+}
+
+type Person implements Base {
+  _type_: String
+  addresses: [Address]
+  birthday: LocalDate
+  businessInformation: BusinessInformation
+  countryCode: String
+  currency: String
+  customerEntryDate: LocalDate
+  dashboard: Dashboard
+  distributor: Person
+  distributorId: String
+  email: String
+  firstName: String
+  gender: Gender
+  hasCartStatusPending: Boolean
+  hasPCIAgreement: Boolean
+  hasPaymentIssues: Boolean
+  homePhone: String
+  id: Long!
+  imageUrl: String
+  language: String
+  lastName: String
+  levelsBelow: Int
+  membershipRenewalDate: LocalDate
+  membershipStartDate: LocalDate
+  membershipTerminationDate: LocalDate
+  mobilePhone: String
+  nextShipmentDate: LocalDate
+  partnerId: String
+  partnerStatus: PartnerStatusType
+  pbPercent: Int
+  pbVolume: BigDecimal
+  pobPercent: Int
+  pobVolume: BigDecimal
+  processingOnboarding: Boolean!
+  pvPercent: Int
+  pvVolume: BigDecimal
+  rank: Rank
+  relativeLevel: Int
+  socialSecurityNumber: String
+  sponsor: Person
+  subscriptions: ResponseWrapper_List_Subscription
+  type: PersonType
+  website: String
+  wellnessCoordinatorId: Long
+}
+
+type PersonResponse_BasePerson implements Base {
+  _type_: String
+  nextPage: Boolean!
+  page: Int!
+  persons: [BasePerson]
+  totalCount: Long!
+}
+
+type PersonResponse_Person implements Base {
+  _type_: String
+  nextPage: Boolean!
+  page: Int!
+  persons: [Person]
+  totalCount: Long!
+}
+
+type PlaceOfBirth implements Base {
+  _type_: String
+  code: String
+  name: String
+}
+
+type Price implements Base {
+  _type_: String
+  displayPrice: BigDecimal
+  hsfFreeProduct: Boolean!
+  lookupType: String
+  paymentOption: PaymentOption
+  price: BigDecimal
+  priceType: String
+  shipmentOption: ShipmentOption
+  sku: String
+}
+
+type Product implements Base {
+  _type_: String
+  businessUnit: String
+  countries: [CountryPrice]
+  group: String
+  type: String
+}
+
+type ProductSkus implements Base {
+  _type_: String
+  adultProductSkus: [String]
+  childProductSkus: [String]
+}
+
+type ProfilePreference implements Base {
+  _type_: String
+  demographicMotivationOther: String
+  demographicMotivationTypes: [DemographicMotivationType]
+  demographicReferredOther: String
+  demographicReferredTypes: [DemographicReferredType]
+}
+
+type PromoteOutBonus implements Base {
+  _type_: String
+  excess: BigDecimal
+  insightText: String
+  insightValue: Int
+  legCount: Int
+  legPartners: [LegPartner]
+  maxLegCount: Int
+  myCustomerCloseToQualified: Int
+  myCustomerQualified: Int
+  paid: BigDecimal
+  pending: Float
+  percentage: Int
+  total: BigDecimal
+  visible: Boolean!
+}
+
+type PurchaseVolume implements Base {
+  _type_: String
+  insightText: String
+  insightValue: Int
+  paid: BigDecimal
+  pending: Float
+  percentage: Int
+  total: BigDecimal
+  visible: Boolean!
+}
+
+#Query root
+type Query {
+  canPromote(partnerId: String): ResponseWrapper_Boolean
+  checkSSNAvailability(ssnNumber: String!): ResponseWrapper_SSNAvailability
+  checkSubscriptionEditOptions(
+    subscriptionId: String
+  ): ResponseWrapper_EditSubscriptionOptionsResponse
+  checkUserLogin: ResponseWrapper_UserLogin
+  countCustomers(
+    criteria: CustomerCriteriaInput
+    email: String
+  ): ResponseWrapper_NumberResponse
+  countPartners(
+    criteria: PartnerCriteriaInput
+    email: String
+  ): ResponseWrapper_NumberResponse
+  countPersons(criteria: PersonCriteriaInput): ResponseWrapper_NumberResponse
+  generate3dSecureToken: ResponseWrapper_String
+  getAddressByLookupId(
+    addressLookupId: String
+    countryCode: String
+  ): ResponseWrapper_AddressLookupResponseDTO
+  getAddressesByEmail(email: String): ResponseWrapper_List_Address
+  getAddressesBySearch(
+    countryCode: String
+    maxResults: Int
+    search: String
+  ): ResponseWrapper_AddressSearchResponseDTO
+  getAvailableCustomerFilters(email: String): ResponseWrapper_FilterOptions
+  getAvailableHostnamesByPartnerId(
+    partnerId: String
+  ): ResponseWrapper_List_AvailableHostnamesResponse
+  getAvailablePartnerFilters(email: String): ResponseWrapper_FilterOptions
+  getBillingInformationFlat: ResponseWrapper_List_FieldValue
+  getCareerStatus(partnerId: String): ResponseWrapper_CareerStatus
+  getCartByCartId(cartId: String): ResponseWrapper_Cart
+  getCartReferralFlat: ResponseWrapper_List_FieldValue
+  getCheckoutConfirmation: ResponseWrapper_CheckoutConfirmation
+  getCheckoutState: ResponseWrapper_CheckoutStateResponseDTO
+  getCurrentCart: ResponseWrapper_Cart
+  getCurrentCartFlat: ResponseWrapper_List_FieldValue
+  getCurrentSharedCart(
+    email: String
+    orderType: CartOrderType = JP
+  ): ResponseWrapper_Cart
+  getCurrentSharedCartFlat(
+    email: String
+    orderType: CartOrderType = JP
+  ): ResponseWrapper_List_FieldValue
+  getCustomers(
+    criteria: CustomerCriteriaInput
+    direction: Direction = ASC
+    email: String
+    orderBy: String = "firstName"
+    page: Int = 0
+    size: Int = 10
+  ): ResponseWrapper_PersonResponse_Person
+  getDashboardByPartnerId(partnerId: String): ResponseWrapper_Dashboard
+  getDashboardPaidContributorReport(
+    direction: Direction = DESC
+    orderBy: ContributorOrderBy = VOLUME
+    page: Int = 0
+    partnerId: String
+    reportType: DetailReportType
+    size: Int = 10
+  ): ResponseWrapper_VolumeReportResponse_ContributorDetail
+  getDashboardPaidOrderReport(
+    direction: Direction = DESC
+    orderBy: PaidOrderOrderBy = SHIP_DATE
+    page: Int = 0
+    partnerId: String
+    reportType: DetailReportType
+    size: Int = 10
+  ): ResponseWrapper_VolumeReportResponse_PaidOrderDetail
+  getDashboardPendingContributorReport(
+    direction: Direction = DESC
+    orderBy: ContributorOrderBy = VOLUME
+    page: Int = 0
+    partnerId: String
+    reportType: DetailReportType
+    size: Int = 10
+  ): ResponseWrapper_VolumeReportResponse_ContributorDetail
+  getDashboardPendingOrderReport(
+    direction: Direction = DESC
+    orderBy: PendingOrderOrderBy = SHIP_DATE
+    page: Int = 0
+    partnerId: String
+    reportType: DetailReportType
+    size: Int = 10
+  ): ResponseWrapper_VolumeReportResponse_PendingOrderDetail
+  getFlatCartByCartId(cartId: String): ResponseWrapper_List_FieldValue
+  getFormConfiguration(
+    context: String
+    countryCode: String
+    form: String
+  ): ResponseWrapper_List_Field
+  getFormControls(
+    countryCode: String
+    form: String
+  ): ResponseWrapper_List_Control
+  getOnboardingPaymentConfirmation: ResponseWrapper_PaymentConfirmation
+  getOrderSummaries(
+    criteria: OrderSummarySearchCriteriaDTOInput
+  ): ResponseWrapper_ErrorQueueResponse
+  getPartnerByHostname(
+    hostname: String
+  ): ResponseWrapper_HostnameLookupResponseDTO
+  getPartnerByPartnerId(partnerId: String): ResponseWrapper_Person
+  getPartnerNameByCartId(cartId: String): ResponseWrapper_CartReferral
+  getPartnerSettings(partnerId: String): ResponseWrapper_PartnerSettings
+  getPartners(
+    criteria: PartnerCriteriaInput
+    direction: Direction = ASC
+    email: String
+    orderBy: String = "firstName"
+    page: Int = 0
+    size: Int = 10
+  ): ResponseWrapper_PersonResponse_Person
+  getPaymentOptionDefinitions(
+    context: String
+    countryCode: String
+  ): ResponseWrapper_List_PaymentOptionDefinition
+  getPersonByEmail(email: String): ResponseWrapper_Person
+  getPersonById(id: Long): ResponseWrapper_Person
+  getPersonPlaceOfBirth(
+    searchText: String
+    size: Int = 10
+  ): ResponseWrapper_List_PlaceOfBirth
+  getPersons(
+    criteria: PersonCriteriaInput
+    direction: Direction = ASC
+    orderBy: String = "firstName"
+    page: Int = 0
+    size: Int = 10
+  ): ResponseWrapper_PersonResponse_BasePerson
+  getProductSkusByCountryCodeAndChildAge(
+    childAge: Int
+    countryCode: String
+  ): ResponseWrapper_ProductSkus
+  getProductsByCountryId(
+    criteria: ProductCriteriaInput
+  ): ResponseWrapper_List_Product
+  getPublicPartnerByPartnerId(
+    partnerId: String
+  ): ResponseWrapper_HostnameLookupResponseDTO
+  getRanks(criteria: RankCriteriaInput): ResponseWrapper_List_Rank
+  getSharedCartBySharedLinkForValidatedEmail(
+    cartId: String
+    email: String
+  ): ResponseWrapper_Cart
+  getSharedCartsByEmail(email: String): ResponseWrapper_List_Cart
+  getShipmentHistoryBySubscription(
+    id: String
+  ): ResponseWrapper_List_ShipmentHistory
+  getShipmentsByOrderId(orderId: String): ResponseWrapper_List_Shipment
+  getShippingInformationFlat: ResponseWrapper_List_FieldValue
+  getStates(locale: String): ResponseWrapper_List_States
+  getSubscriptionCancelReasons: ResponseWrapper_List_SubscriptionChangeReason
+  getSubscriptionDelayReasons: ResponseWrapper_List_SubscriptionChangeReason
+  getSubscriptionFees(countryCode: String): ResponseWrapper_SubscriptionFee
+  getSubscriptionReturnReasons: ResponseWrapper_List_SubscriptionChangeReason
+  getSubscriptionsByEmail(email: String): ResponseWrapper_List_Subscription
+  getSubscriptionsBySubscriptionId(
+    subscriptionId: String
+  ): ResponseWrapper_Subscription
+  getTaxCodeValidation(
+    city: String
+    county: String
+    postalCode: String
+    state: String
+  ): ResponseWrapper_ZipCodeDTO
+  isEmailValid(email: String): ResponseWrapper_EmailValidationResponseDTO
+  lookUpZipCode(postalCode: String): ResponseWrapper_ZipCodeLookupResponseDTO
+  useShippingAsBillingAddress: ResponseWrapper_Boolean
+}
+
+type Rank implements Base {
+  _type_: String
+  description: String
+  rank: Int
+  title: String
+}
+
+type RegisterHSF implements Base {
+  _type_: String
+  childDateOfBirth: LocalDate
+  childFirstName: String
+  childLastName: String
+  city: String
+  email: String!
+  existingCustomer: Boolean
+  firstName: String
+  lastName: String
+  message: String
+  phoneNumber: String
+  state: String
+  street1: String
+  street2: String
+  street3: String
+  zip: String
+}
+
+type RegisterPartner implements Base {
+  _type_: String
+  businessName: String
+  contactAddress: RegistrationAddress
+  dateOfBirth: LocalDate
+  email: String!
+  ethnicity: String
+  firstName: String
+  firstSurname: String
+  gender: Gender
+  incorporated: Boolean
+  lastName: String
+  middleName: String
+  phoneNumber: String
+  placeOfBirth: String
+  preferredLanguage: String
+  provinceOfBirth: String
+  referredPartnerId: String
+  registeredByPartner: Boolean
+  socialSecurityNumber: String
+  source: RegistrationSource
+  taxFiledCity: String
+  taxId: String
+  title: String
+}
+
+type RegistrationAddress implements Base {
+  _type_: String
+  city: String
+  countryCode: String
+  county: String
+  state: String
+  street1: String
+  street2: String
+  street3: String
+  zip: String
+}
+
+type ResponseWrapper_AddressLookupResponseDTO {
+  data: AddressLookupResponseDTO
+  dataOrThrow: AddressLookupResponseDTO
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_AddressSearchResponseDTO {
+  data: AddressSearchResponseDTO
+  dataOrThrow: AddressSearchResponseDTO
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_Boolean {
+  data: Boolean
+  dataOrThrow: Boolean
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_CareerStatus {
+  data: CareerStatus
+  dataOrThrow: CareerStatus
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_Cart {
+  data: Cart
+  dataOrThrow: Cart
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_CartReferral {
+  data: CartReferral
+  dataOrThrow: CartReferral
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_CheckoutConfirmation {
+  data: CheckoutConfirmation
+  dataOrThrow: CheckoutConfirmation
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_CheckoutStateResponseDTO {
+  data: CheckoutStateResponseDTO
+  dataOrThrow: CheckoutStateResponseDTO
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_Dashboard {
+  data: Dashboard
+  dataOrThrow: Dashboard
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_EditSubscriptionOptionsResponse {
+  data: EditSubscriptionOptionsResponse
+  dataOrThrow: EditSubscriptionOptionsResponse
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_EmailValidationResponseDTO {
+  data: EmailValidationResponseDTO
+  dataOrThrow: EmailValidationResponseDTO
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_ErrorQueueOrderSummary {
+  data: ErrorQueueOrderSummary
+  dataOrThrow: ErrorQueueOrderSummary
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_ErrorQueueResponse {
+  data: ErrorQueueResponse
+  dataOrThrow: ErrorQueueResponse
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_FilterOptions {
+  data: FilterOptions
+  dataOrThrow: FilterOptions
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_HostnameLookupResponseDTO {
+  data: HostnameLookupResponseDTO
+  dataOrThrow: HostnameLookupResponseDTO
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_List_Address {
+  data: [Address]
+  dataOrThrow: [Address]
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_List_AvailableHostnamesResponse {
+  data: [AvailableHostnamesResponse]
+  dataOrThrow: [AvailableHostnamesResponse]
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_List_Cart {
+  data: [Cart]
+  dataOrThrow: [Cart]
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_List_Control {
+  data: [Control]
+  dataOrThrow: [Control]
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_List_Field {
+  data: [Field]
+  dataOrThrow: [Field]
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_List_FieldValue {
+  data: [FieldValue]
+  dataOrThrow: [FieldValue]
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_List_PaymentOptionDefinition {
+  data: [PaymentOptionDefinition]
+  dataOrThrow: [PaymentOptionDefinition]
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_List_PlaceOfBirth {
+  data: [PlaceOfBirth]
+  dataOrThrow: [PlaceOfBirth]
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_List_Product {
+  data: [Product]
+  dataOrThrow: [Product]
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_List_Rank {
+  data: [Rank]
+  dataOrThrow: [Rank]
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_List_Shipment {
+  data: [Shipment]
+  dataOrThrow: [Shipment]
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_List_ShipmentHistory {
+  data: [ShipmentHistory]
+  dataOrThrow: [ShipmentHistory]
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_List_States {
+  data: [States]
+  dataOrThrow: [States]
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_List_Subscription {
+  data: [Subscription]
+  dataOrThrow: [Subscription]
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_List_SubscriptionChangeReason {
+  data: [SubscriptionChangeReason]
+  dataOrThrow: [SubscriptionChangeReason]
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_NumberResponse {
+  data: NumberResponse
+  dataOrThrow: NumberResponse
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_PartnerSettings {
+  data: PartnerSettings
+  dataOrThrow: PartnerSettings
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_PaymentConfirmation {
+  data: PaymentConfirmation
+  dataOrThrow: PaymentConfirmation
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_Person {
+  data: Person
+  dataOrThrow: Person
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_PersonResponse_BasePerson {
+  data: PersonResponse_BasePerson
+  dataOrThrow: PersonResponse_BasePerson
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_PersonResponse_Person {
+  data: PersonResponse_Person
+  dataOrThrow: PersonResponse_Person
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_ProductSkus {
+  data: ProductSkus
+  dataOrThrow: ProductSkus
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_SSNAvailability {
+  data: SSNAvailability
+  dataOrThrow: SSNAvailability
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_String {
+  data: String
+  dataOrThrow: String
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_Subscription {
+  data: Subscription
+  dataOrThrow: Subscription
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_SubscriptionFee {
+  data: SubscriptionFee
+  dataOrThrow: SubscriptionFee
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_UserLogin {
+  data: UserLogin
+  dataOrThrow: UserLogin
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_Validation {
+  data: Validation
+  dataOrThrow: Validation
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_Void {
+  data: Boolean
+  dataOrThrow: Boolean
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_VolumeReportResponse_ContributorDetail {
+  data: VolumeReportResponse_ContributorDetail
+  dataOrThrow: VolumeReportResponse_ContributorDetail
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_VolumeReportResponse_PaidOrderDetail {
+  data: VolumeReportResponse_PaidOrderDetail
+  dataOrThrow: VolumeReportResponse_PaidOrderDetail
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_VolumeReportResponse_PendingOrderDetail {
+  data: VolumeReportResponse_PendingOrderDetail
+  dataOrThrow: VolumeReportResponse_PendingOrderDetail
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_ZipCodeDTO {
+  data: ZipCodeDTO
+  dataOrThrow: ZipCodeDTO
+  error: JpError
+  validations: [Validation]
+}
+
+type ResponseWrapper_ZipCodeLookupResponseDTO {
+  data: ZipCodeLookupResponseDTO
+  dataOrThrow: ZipCodeLookupResponseDTO
+  error: JpError
+  validations: [Validation]
+}
+
+type SSNAvailability {
+  partnerStatus: String
+  ssnAvailable: Boolean
+}
+
+type Sepa implements PaymentType {
+  _type_: String
+}
+
+type Shipment implements Base {
+  _type_: String
+  carrier: String
+  id: String
+  orderId: String
+  shipDate: LocalDate
+  skus: [String]
+  trackingNumbers: [String]
+}
+
+type ShipmentHistory implements Base {
+  _type_: String
+  lastShipmentDate: LocalDate
+  partnerId: String
+  payments: [PaymentInfo]
+  shipment: [Shipment]
+}
+
+type ShippingInformation implements Base {
+  _type_: String
+  address: BaseAddress
+  contactDetails: ContactDetails
+}
+
+type SofortPayment implements PaymentType {
+  _type_: String
+}
+
+type StandingOrder implements PaymentType {
+  _type_: String
+}
+
+type States implements Base {
+  _type_: String
+  abbreviation: String
+  state: String
+}
+
+type Subscription implements Base {
+  _type_: String
+  businessUnit: BusinessUnit
+  calculatedDeliveryAmount: BigDecimal
+  calculatedTaxAmount: BigDecimal
+  cancellationOnHold: Boolean
+  currency: String
+  customerFirstName: String
+  customerLastName: String
+  dateCreated: ZonedDateTime
+  dateLastPayment: LocalDate
+  dateLastStatusChange: LocalDate
+  fee: BigDecimal
+  finalPaymentDueDate: LocalDate
+  freightAmount: BigDecimal
+  id: String
+  lastFreeShipment: Boolean
+  leadType: String
+  nextShipmentDate: LocalDate
+  offlineVoucher: OfflineVoucher
+  orderType: String
+  partnerId: String
+  paymentMethod: PaymentMethod
+  shippingAddress: Address
+  subscriptionLines: [SubscriptionLine]
+  taxAmount: BigDecimal
+  totalAmount: BigDecimal
+  totalShipments: Int
+}
+
+type SubscriptionChangeReason {
+  reasonKey: String
+}
+
+type SubscriptionFee {
+  countryCode: String
+  currency: String
+  currencyCode: String
+  renewalFee: BigDecimal
+  renewalPriceWithoutTaxes: BigDecimal
+  renewalSku: String
+  signUpFee: BigDecimal
+  signUpSku: String
+}
+
+type SubscriptionLine implements Base {
+  _type_: String
+  active: Boolean!
+  nbrInstallments: Int
+  paymentOption: PaymentOption
+  price: BigDecimal
+  quantity: Int
+  shipmentOption: ShipmentOption
+  singleShip: Boolean!
+  skuId: String
+  subscriptionId: String
+}
+
+type TermResult implements Base {
+  _type_: String
+  countryCode: String
+  rank: Int
+  result: Boolean
+  salience: Float
+  weight: Float
+}
+
+type UserLogin {
+  loggedThroughSocialMedia: Boolean!
+}
+
+type Validation implements Base {
+  _type_: String
+  field: String
+  instance: String
+  message: String
+}
+
+type ValidationRequest implements Base {
+  _type_: String
+  dto: Base
+  useCase: String
+}
+
+type VolumeReportResponse_ContributorDetail implements Base {
+  _type_: String
+  detailList: [ContributorDetail]
+  lastUpdate: LocalDateTime
+  nextPage: Boolean!
+  page: Int!
+  totalCount: Long!
+  totalVolume: Float!
+}
+
+type VolumeReportResponse_PaidOrderDetail implements Base {
+  _type_: String
+  detailList: [PaidOrderDetail]
+  lastUpdate: LocalDateTime
+  nextPage: Boolean!
+  page: Int!
+  totalCount: Long!
+  totalVolume: Float!
+}
+
+type VolumeReportResponse_PendingOrderDetail implements Base {
+  _type_: String
+  detailList: [PendingOrderDetail]
+  lastUpdate: LocalDateTime
+  nextPage: Boolean!
+  page: Int!
+  totalCount: Long!
+  totalVolume: Float!
+}
+
+type ZipCodeDTO {
+  city: String
+  county: String
+  state: String
+  taxCode: String
+}
+
+type ZipCodeLookupResponseDTO {
+  zipCodeList: [ZipCodeDTO]
+}
+
+type __Directive {
+  args: [__InputValue!]!
+  description: String
+  locations: [__DirectiveLocation!]
+  name: String
+  onField: Boolean
+  onFragment: Boolean
+  onOperation: Boolean
+}
+
+type __EnumValue {
+  deprecationReason: String
+  description: String
+  isDeprecated: Boolean!
+  name: String!
+}
+
+type __Field {
+  args: [__InputValue!]!
+  deprecationReason: String
+  description: String
+  isDeprecated: Boolean!
+  name: String!
+  type: __Type!
+}
+
+type __InputValue {
+  defaultValue: String
+  description: String
+  name: String!
+  type: __Type!
+}
+
+#A GraphQL Introspection defines the capabilities of a GraphQL server. It exposes all available types and directives on the server, the entry points for query, mutation, and subscription operations.
+type __Schema {
+  #'A list of all directives supported by this server.
+  directives: [__Directive!]!
+  #If this server supports mutation, the type that mutation operations will be rooted at.
+  mutationType: __Type
+  #The type that query operations will be rooted at.
+  queryType: __Type!
+  #'If this server support subscription, the type that subscription operations will be rooted at.
+  subscriptionType: __Type
+  #A list of all types supported by this server.
+  types: [__Type!]!
+}
+
+type __Type {
+  description: String
+  enumValues(includeDeprecated: Boolean = false): [__EnumValue!]
+  fields(includeDeprecated: Boolean = false): [__Field!]
+  inputFields: [__InputValue!]
+  interfaces: [__Type!]
+  kind: __TypeKind!
+  name: String
+  ofType: __Type
+  possibleTypes: [__Type!]
+}
+
+#Input type discriminator
+enum BaseTypeDisambiguator {
+  Address
+  AvailableHostnamesResponse
+  BaseAddress
+  BasePerson
+  BaseVolumeReportDetail
+  BillingInformation
+  BusinessInformation
+  CallBackEmail
+  CareerPath
+  CareerStatus
+  Cart
+  CartChildDetails
+  CartLocale
+  CartMetaData
+  CartProduct
+  CartProductGroup
+  CartReferral
+  CheckoutConfirmation
+  CheckoutOrderDetail
+  ContactDetails
+  ContactUsEmail
+  ContributorDetail
+  Control
+  Country
+  CountryPrice
+  CustomerAccountDetails
+  CustomerBrowser
+  Dashboard
+  ErrorQueueOrderSummary
+  ErrorQueueResponse
+  Field
+  FieldValue
+  FilterOptions
+  FiscalCodeRequest
+  Form
+  GeoDefinition
+  InstallmentDetail
+  InstallmentSchedule
+  Invoice
+  KpiData
+  KpiResult
+  Language
+  LegPartner
+  NumberResponse
+  OfflineVoucher
+  OnboardPartner
+  Order
+  OrderLine
+  PaidOrderDetail
+  PartnerAccountDetails
+  PartnerBankInformation
+  PartnerPCICompliance
+  PartnerPublicInformationUpdate
+  PartnerRenewal
+  PaymentConfirmation
+  PaymentInfo
+  PaymentMethod
+  PaymentOptionDefinition
+  PendingOrderDetail
+  PerformanceBonus
+  Person
+  PersonResponse
+  PlaceOfBirth
+  Price
+  Product
+  ProductSkus
+  ProfilePreference
+  PromoteOutBonus
+  PurchaseVolume
+  Rank
+  RegisterHSF
+  RegisterPartner
+  RegistrationAddress
+  Shipment
+  ShipmentHistory
+  ShippingInformation
+  States
+  Subscription
+  SubscriptionLine
+  TermResult
+  Validation
+  ValidationRequest
+  VolumeReportResponse
+}
+
+enum BusinessUnit {
+  JUICE_PLUS
+  TOWER_GARDEN
+}
+
+enum CallBackTime {
+  AFTERNOON
+  MORNING
+}
+
+enum CartOrderType {
+  DAO
+  HSF
+  JP
+  ORPHAN
+}
+
+enum CartPendingStatus {
+  CLICKED
+  SEEN
+  UNSEEN
+}
+
+enum CartType {
+  DEFAULT_CART
+  DISTRIBUTOR_CART
+  HSF_CART
+  PARTNER_CART
+  SHARED_CART
+}
+
+enum CheckoutProcessStateDTO {
+  FAILED
+  PENDING
+  RUNNING
+  SUCCEEDED
+}
+
+enum ContributorOrderBy {
+  FIRST_NAME
+  FRONTLINE_FIRST_NAME
+  FRONTLINE_LAST_NAME
+  LAST_NAME
+  LEVEL
+  POSITION
+  VOLUME
+}
+
+enum CustomerSearchType {
+  ALL
+  DIRECT
+}
+
+enum DataWindow {
+  ALL
+  LAST_2_MONTH
+  LAST_30_DAYS
+  LAST_60_DAYS
+  LAST_MONTH
+  NONE
+}
+
+enum DemographicMotivationType {
+  HEALTHY_WEIGHT
+  OTHER
+  OVERALL_HEALTH
+  SUPPORT_PHYSICAL
+}
+
+enum DemographicReferredType {
+  FACEBOOK
+  FROM_FRIEND
+  OTHER
+  OTHER_SOCIAL
+}
+
+enum DetailReportType {
+  PERFORMANCE_BONUS
+  PROMOTE_OUT_BONUS
+  PURCHASE_VOLUME
+}
+
+enum Direction {
+  ASC
+  DESC
+}
+
+enum Gender {
+  FEMALE
+  MALE
+  OTHER
+}
+
+enum HowHear {
+  JUICE_PLUS_REPRESENTATIVE
+  OTHER
+  WEB_AD
+}
+
+enum KpiType {
+  CUSTOMER
+  QUALIFICATION
+  TEAM
+  VOLUME
+}
+
+enum LeadType {
+  DAO
+  GUEST
+  HSF
+}
+
+enum ListValueType {
+  MULTI_SELECT
+  SINGLE_SELECT
+}
+
+enum OrderLifeCycle {
+  ACTIVE
+  ARCHIVE
+}
+
+enum OrderStatus {
+  FAILED
+  PROCESSING
+  SUCCEEDED
+}
+
+enum OrderStatusType {
+  CANCELLED
+  CART_CONFIRMATION_PENDING
+  PAYMENT_ISSUE
+}
+
+enum PaidOrderOrderBy {
+  CUSTOMER_NAME
+  FIRST_NAME
+  LAST_NAME
+  LEVEL
+  ORDER_ID
+  POSITION
+  SHIP_DATE
+  SUBSCRIPTION_ID
+  VOLUME
+}
+
+enum PartnerStatusType {
+  Active
+  Inactive
+  OnboardExp
+  Onboarding
+  Unk
+}
+
+enum PaymentOption {
+  FULL_PAYMENT
+  INSTALLMENT_12
+  INSTALLMENT_2
+  INSTALLMENT_3
+  INSTALLMENT_4
+}
+
+enum PaymentStatus {
+  APPROVED
+  DECLINED
+  FAILED
+  INVALID_REQUEST
+  PENDING
+  PROCESSING
+}
+
+enum PendingOrderOrderBy {
+  CUSTOMER_NAME
+  FIRST_NAME
+  LAST_NAME
+  LEVEL
+  POSITION
+  SHIP_DATE
+  SUBSCRIPTION_ID
+  VOLUME
+}
+
+enum PersonType {
+  CUSTOMER
+  PARTNER
+}
+
+enum RegistrationSource {
+  MOBILE
+  WEB
+}
+
+enum Segment {
+  FULL_TIME_BUSINESS
+  PART_TIME_BUSINESS
+  PRIVATE
+}
+
+enum ShipmentOption {
+  RECURRING_EVERY_12_MONTHS
+  RECURRING_EVERY_2_MONTHS
+  RECURRING_EVERY_3_MONTHS
+  RECURRING_EVERY_4_MONTHS
+  SINGLE
+}
+
+enum Status {
+  ACCEPTED
+  ALREADY_REPORTED
+  BAD_GATEWAY
+  BAD_REQUEST
+  BANDWIDTH_LIMIT_EXCEEDED
+  CHECKPOINT
+  CONFLICT
+  CONTINUE
+  CREATED
+  EXPECTATION_FAILED
+  FAILED_DEPENDENCY
+  FORBIDDEN
+  FOUND
+  GATEWAY_TIMEOUT
+  GONE
+  HTTP_VERSION_NOT_SUPPORTED
+  IM_USED
+  INSUFFICIENT_STORAGE
+  INTERNAL_SERVER_ERROR
+  I_AM_A_TEAPOT
+  LENGTH_REQUIRED
+  LOCKED
+  LOOP_DETECTED
+  METHOD_NOT_ALLOWED
+  MOVED_PERMANENTLY
+  MULTIPLE_CHOICES
+  MULTI_STATUS
+  NETWORK_AUTHENTICATION_REQUIRED
+  NON_AUTHORITATIVE_INFORMATION
+  NOT_ACCEPTABLE
+  NOT_EXTENDED
+  NOT_FOUND
+  NOT_IMPLEMENTED
+  NOT_MODIFIED
+  NO_CONTENT
+  OK
+  PARTIAL_CONTENT
+  PAYMENT_REQUIRED
+  PERMANENT_REDIRECT
+  PRECONDITION_FAILED
+  PRECONDITION_REQUIRED
+  PROCESSING
+  PROXY_AUTHENTICATION_REQUIRED
+  REQUESTED_RANGE_NOT_SATISFIABLE
+  REQUEST_ENTITY_TOO_LARGE
+  REQUEST_HEADER_FIELDS_TOO_LARGE
+  REQUEST_TIMEOUT
+  REQUEST_URI_TOO_LONG
+  RESET_CONTENT
+  SEE_OTHER
+  SERVICE_UNAVAILABLE
+  SWITCHING_PROTOCOLS
+  TEMPORARY_REDIRECT
+  TOO_MANY_REQUESTS
+  UNAUTHORIZED
+  UNAVAILABLE_FOR_LEGAL_REASONS
+  UNPROCESSABLE_ENTITY
+  UNSUPPORTED_MEDIA_TYPE
+  UPGRADE_REQUIRED
+  USE_PROXY
+  VARIANT_ALSO_NEGOTIATES
+}
+
+enum VolumeFilter {
+  CLOSE_TO_PB
+  CLOSE_TO_POB
+}
+
+#An enum describing valid locations where a directive can be placed
+enum __DirectiveLocation {
+  #Indicates the directive is valid on a field argument SDL definition.
+  ARGUMENT_DEFINITION
+  #Indicates the directive is valid on an enum SDL definition.
+  ENUM
+  #Indicates the directive is valid on an enum value SDL definition.
+  ENUM_VALUE
+  #Indicates the directive is valid on fields.
+  FIELD
+  #Indicates the directive is valid on a field SDL definition.
+  FIELD_DEFINITION
+  #Indicates the directive is valid on fragment definitions.
+  FRAGMENT_DEFINITION
+  #Indicates the directive is valid on fragment spreads.
+  FRAGMENT_SPREAD
+  #Indicates the directive is valid on inline fragments.
+  INLINE_FRAGMENT
+  #Indicates the directive is valid on an input object field SDL definition.
+  INPUT_FIELD_DEFINITION
+  #Indicates the directive is valid on an input object SDL definition.
+  INPUT_OBJECT
+  #Indicates the directive is valid on an interface SDL definition.
+  INTERFACE
+  #Indicates the directive is valid on mutations.
+  MUTATION
+  #Indicates the directive is valid on an object SDL definition.
+  OBJECT
+  #Indicates the directive is valid on queries.
+  QUERY
+  #Indicates the directive is valid on a scalar SDL definition.
+  SCALAR
+  #Indicates the directive is valid on a schema SDL definition.
+  SCHEMA
+  #Indicates the directive is valid on an union SDL definition.
+  UNION
+}
+
+#An enum describing what kind of type a given __Type is
+enum __TypeKind {
+  #Indicates this type is an enum. `enumValues` is a valid field.
+  ENUM
+  #Indicates this type is an input object. `inputFields` is a valid field.
+  INPUT_OBJECT
+  #Indicates this type is an interface. `fields` and `possibleTypes` are valid fields.
+  INTERFACE
+  #Indicates this type is a list. `ofType` is a valid field.
+  LIST
+  #Indicates this type is a non-null. `ofType` is a valid field.
+  NON_NULL
+  #Indicates this type is an object. `fields` and `interfaces` are valid fields.
+  OBJECT
+  #Indicates this type is a scalar.
+  SCALAR
+  #Indicates this type is a union. `possibleTypes` is a valid field.
+  UNION
+}
+
+#Base64-encoded binary
+scalar Base64String
+
+#Built-in java.math.BigDecimal
+scalar BigDecimal
+
+#Built-in scalar representing a local date
+scalar LocalDate
+
+#Built-in scalar representing a local date-time
+scalar LocalDateTime
+
+#Long type
+scalar Long
+
+#Built-in scalar for dynamic values
+scalar ObjectScalar
+
+#Unrepresentable type
+scalar UNREPRESENTABLE
+
+#Built-in scalar representing a date-time with a time-zone
+scalar ZonedDateTime
+
+input AddChildDetailsInput {
+  dateOfBirth: LocalDate!
+  firstName: String
+  lastName: String
+}
+
+input AddProductToCartInput {
+  paymentOption: PaymentOption!
+  quantity: Int!
+  sku: String!
+}
+
+input BaseAddressInput {
+  city: String
+  countryCode: String
+  county: String
+  postalCode: String
+  region: String
+  state: String
+  street1: String
+  street2: String
+  street3: String
+}
+
+input BaseInput {
+  _type_: BaseTypeDisambiguator
+}
+
+input BillingInformationInput {
+  address: BaseAddressInput
+  contactDetails: ContactDetailsInput
+}
+
+input BooleanFilterInput {
+  equals: Boolean
+  in: [Boolean]
+  notEquals: Boolean
+  specified: Boolean
+}
+
+input CalculateTaxesAndFeesRequestInput {
+  city: String
+  state: String
+  zipCode: String
+}
+
+input CallBackEmailInput {
+  callbackDate: LocalDate!
+  callbackTime: CallBackTime!
+  firstName: String
+  lastName: String
+  phone: String!
+}
+
+input CancelSubscriptionDTOInput {
+  cancel: Boolean!
+  cancelAfterFinalPayment: Boolean!
+  cancellationReason: String
+  comments: String
+  payImmediatelyAndCancel: Boolean!
+}
+
+input CartReferralInput {
+  partnerEmail: String
+  partnerId: String
+  partnerName: String
+  partnerUrl: String
+  readOnly: Boolean
+  referred: Boolean
+}
+
+input ChangePaymentOptionInput {
+  paymentOption: PaymentOption!
+  shipmentOption: ShipmentOption!
+}
+
+input ChangeSharedCartOrderTypeInput {
+  orderType: CartOrderType
+}
+
+input ChangeSharedCartPendingStatusInput {
+  status: CartPendingStatus
+}
+
+input ChangeSubscriptionShipmentDateDTOInput {
+  comments: String
+  nextShipmentDate: LocalDate
+  reasonForChange: String
+}
+
+input ContactDetailsInput {
+  alternativePhoneNumber: String
+  dateOfBirth: LocalDate
+  email: String
+  euroSocialSecurityNumber: String
+  firstName: String
+  gender: Gender
+  lastName: String
+  phoneNumber: String
+  placeOfBirth: String
+}
+
+input ContactUsEmailInput {
+  apartment: String
+  childBirthday: String
+  childFirstName: String
+  childLastName: String
+  city: String
+  emailAddress: String!
+  existingCustomer: Boolean!
+  firstName: String
+  howHear: HowHear
+  lastName: String
+  message: String
+  partnerEmailAddress: String
+  partnerFullName: String
+  partnerId: String
+  phone: String
+  postalCode: String
+  region: String
+  state: String
+  street: String
+}
+
+input CreateCartForDaoOrderInput {
+  cartType: CartType
+}
+
+input CreateSharedCartInput {
+  orderType: CartOrderType
+}
+
+input CustomerCriteriaInput {
+  anniversary: LocalDateFilterInput
+  birthday: LocalDateFilterInput
+  cancelDate: LocalDateFilterInput
+  countryCode: StringFilterInput
+  customerEntryDate: LocalDateFilterInput
+  customerSearchType: CustomerSearchType
+  nextShipmentDate: LocalDateFilterInput
+  orderDate: LocalDateFilterInput
+  orderStatus: OrderStatusType
+  partnerSID: LongFilterInput
+  searchText: StringFilterInput
+}
+
+input EmailChangeDTOInput {
+  currentPassword: String
+  newEmail: String
+}
+
+input FieldValueInput {
+  name: String
+  value: String
+}
+
+input FileUploadInputDTOInput {
+  content: Base64String
+  contentType: String
+  fileSize: Long!
+}
+
+input FiscalCodeRequestInput {
+  dateOfBirth: LocalDate
+  firstName: String
+  fiscalCode: String
+  gender: Gender
+  lastName: String
+  placeOfBirth: String
+}
+
+input IntegerFilterInput {
+  equals: Int
+  greaterOrEqualThan: Int
+  greaterThan: Int
+  in: [Int]
+  lessOrEqualThan: Int
+  lessThan: Int
+  notEquals: Int
+  specified: Boolean
+}
+
+input KeyAndPasswordVMInput {
+  key: String
+  newPassword: String
+}
+
+input LocalDateFilterInput {
+  equals: LocalDate
+  greaterOrEqualThan: LocalDate
+  greaterThan: LocalDate
+  in: [LocalDate]
+  lessOrEqualThan: LocalDate
+  lessThan: LocalDate
+  notEquals: LocalDate
+  specified: Boolean
+}
+
+input LongFilterInput {
+  equals: Long
+  greaterOrEqualThan: Long
+  greaterThan: Long
+  in: [Long]
+  lessOrEqualThan: Long
+  lessThan: Long
+  notEquals: Long
+  specified: Boolean
+}
+
+input OrderSummarySearchCriteriaDTOInput {
+  assigned: Boolean
+  cartType: CartType
+  country: String
+  fuzzySearch: Boolean
+  limit: Int
+  offset: Int
+  orderLifeCycle: OrderLifeCycle
+  orderStatus: OrderStatus
+  paymentStatus: PaymentStatus
+  unassigned: Boolean
+}
+
+input PartnerCriteriaInput {
+  anniversary: LocalDateFilterInput
+  birthday: LocalDateFilterInput
+  countryCode: StringFilterInput
+  lastTitleUpdate: LocalDateFilterInput
+  levels: IntegerFilterInput
+  memberSince: LocalDateFilterInput
+  membershipRenewal: LocalDateFilterInput
+  partnerSID: LongFilterInput
+  partnerStatus: [PartnerStatusType]
+  pbPercent: IntegerFilterInput
+  pobPercent: IntegerFilterInput
+  position: StringFilterInput
+  pvPercent: IntegerFilterInput
+  searchText: StringFilterInput
+  volumeFilter: VolumeFilter
+}
+
+input PartnerPublicInformationUpdateInput {
+  email: String
+  firstName: String
+  lastName: String
+  phoneNumber: String
+}
+
+input PasswordChangeDTOInput {
+  currentPassword: String
+  newPassword: String
+}
+
+input PersonCriteriaInput {
+  anniversary: LocalDateFilterInput
+  birthday: LocalDateFilterInput
+  countryCode: StringFilterInput
+  customerDistributorId: StringFilterInput
+  email: StringFilterInput
+  firstName: StringFilterInput
+  franchisePartner: BooleanFilterInput
+  homePhone: StringFilterInput
+  id: LongFilterInput
+  language: StringFilterInput
+  lastName: StringFilterInput
+  mobilePhone: StringFilterInput
+  partnerId: StringFilterInput
+  partnerSID: LongFilterInput
+  searchText: StringFilterInput
+  sfmcDistributorId: LongFilterInput
+  sponsorId: LongFilterInput
+  status: StringFilterInput
+  type: StringFilterInput
+  wellnessCoordinatorId: LongFilterInput
+}
+
+input ProductCriteriaInput {
+  businessUnit: StringFilterInput
+  countryCode: StringFilterInput
+  countryId: StringFilterInput
+  group: StringFilterInput
+  sku: StringFilterInput
+}
+
+input ProfilePreferenceInput {
+  demographicMotivationOther: String
+  demographicMotivationTypes: [DemographicMotivationType]
+  demographicReferredOther: String
+  demographicReferredTypes: [DemographicReferredType]
+}
+
+input RankCriteriaInput {
+  countryId: StringFilterInput
+  description: StringFilterInput
+  rank: IntegerFilterInput
+  title: StringFilterInput
+}
+
+input RegisterCustomerInput {
+  countryCode: String
+  email: String!
+  firstName: String
+  lastName: String
+  password: String
+  phone: String
+}
+
+input RegisterHSFInput {
+  childDateOfBirth: LocalDate
+  childFirstName: String
+  childLastName: String
+  city: String
+  email: String!
+  existingCustomer: Boolean
+  firstName: String
+  lastName: String
+  message: String
+  phoneNumber: String
+  state: String
+  street1: String
+  street2: String
+  street3: String
+  zip: String
+}
+
+input RegisterPartnerInput {
+  businessName: String
+  contactAddress: RegistrationAddressInput
+  dateOfBirth: LocalDate
+  email: String!
+  ethnicity: String
+  firstName: String
+  firstSurname: String
+  gender: Gender
+  incorporated: Boolean
+  lastName: String
+  middleName: String
+  phoneNumber: String
+  placeOfBirth: String
+  preferredLanguage: String
+  provinceOfBirth: String
+  referredPartnerId: String
+  registeredByPartner: Boolean
+  socialSecurityNumber: String
+  source: RegistrationSource
+  taxFiledCity: String
+  taxId: String
+  title: String
+}
+
+input RegistrationAddressInput {
+  city: String
+  countryCode: String
+  county: String
+  state: String
+  street1: String
+  street2: String
+  street3: String
+  zip: String
+}
+
+input RemoveMultipleProductsFromCartInput {
+  skus: [String]!
+}
+
+input RemoveProductFromCartInput {
+  sku: String!
+}
+
+input RestartSubscriptionDTOInput {
+  restartShipmentDate: LocalDate
+}
+
+input ReturnSubscriptionInput {
+  comments: String
+  returnReason: String
+}
+
+input ShippingInformationInput {
+  address: BaseAddressInput
+  contactDetails: ContactDetailsInput
+}
+
+input StringFilterInput {
+  contains: String
+  doesNotContain: String
+  equals: String
+  in: [String]
+  notEquals: String
+  specified: Boolean
+}
+
+input UpdateCartProductQuantityInput {
+  quantity: Int!
+  sku: String!
+}
+
+input UpdateSharedCartCountryInput {
+  country: String
+}
+
+input ValidationRequestInput {
+  dto: BaseInput
+  useCase: String
+}
