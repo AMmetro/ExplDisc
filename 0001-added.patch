@@ -1,0 +1,64 @@
+From 3936413d71452979d6fbfcc1e50cf8c9028d6aca Mon Sep 17 00:00:00 2001
+From: Andrei <7656077@mail.ru>
+Date: Mon, 13 Dec 2021 17:36:13 +0300
+Subject: [PATCH] added
+
+---
+ src/components/ExpressTooltip.tsx | 7 ++-----
+ src/components/ExpressTrack.tsx   | 5 +----
+ 2 files changed, 3 insertions(+), 9 deletions(-)
+
+diff --git a/src/components/ExpressTooltip.tsx b/src/components/ExpressTooltip.tsx
+index e241444..e9be825 100644
+--- a/src/components/ExpressTooltip.tsx
++++ b/src/components/ExpressTooltip.tsx
+@@ -4,21 +4,18 @@ import type {ReactNode} from 'react'
+ import {QuestionMarkTooltip} from './ui/icons'
+ 
+ type Props = {
+-  reached: boolean
+   message: ReactNode
+   daysLeft: number
+ }
+ 
+-export function ExpressTooltip({message, daysLeft, reached}: Props) {
++export function ExpressTooltip({message, daysLeft}: Props) {
+   return (
+     <div>
+       <div className="relative group">
+         <QuestionMarkTooltip
+           className={classNames(
+             'group-hover:text-orange-hover group-hover:cursor-pointer text-24',
+-            daysLeft > 0 || reached 
+-            ? 'bg-plum-light text-beet' 
+-            : 'bg-grey-6 text-grey-3'
++            daysLeft > 0 ? 'bg-plum-light text-beet' : 'bg-grey-6 text-grey-3'
+           )}
+         />
+         <div className="group-hover:block absolute -top-5 bg-white min-w-[295px] -translate-y-full -translate-x-64 border border-grey-6 rounded-[10px] z-auto shadow-tooltip hidden">
+diff --git a/src/components/ExpressTrack.tsx b/src/components/ExpressTrack.tsx
+index f596f1b..52f2786 100644
+--- a/src/components/ExpressTrack.tsx
++++ b/src/components/ExpressTrack.tsx
+@@ -95,9 +95,7 @@ export function ExpressTrack({
+       <div
+         className={classNames(
+           'text-13 flex flex-row rounded-l-full items-center h-8',
+-          daysLeft > 0 || reached 
+-          ? 'bg-plum-light text-beet' 
+-          : 'bg-grey-6 text-grey-3'
++          daysLeft > 0 ? 'bg-plum-light text-beet' : 'bg-grey-6 text-grey-3'
+         )}
+       >
+         <div className="ml-4 mr-3 my-2">
+@@ -118,7 +116,6 @@ export function ExpressTrack({
+ 
+         <div className="mr-6 my-1 hover:text-orange-hover">
+           <ExpressTooltip
+-            reached={reached}
+             daysLeft={daysLeft}
+             message={
+               <ExpressTooltipMessage
+-- 
+2.33.0.windows.2
+
