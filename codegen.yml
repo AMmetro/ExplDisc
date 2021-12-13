@@ -1,0 +1,21 @@
+generates:
+  src/lib/juiceplus/atd/sdk.ts:
+    schema: "src/lib/juiceplus/atd/graphql/schema.graphql"
+    documents:
+      - "src/lib/juiceplus/atd/graphql/**/*.graphql"
+      - "!src/lib/juiceplus/atd/graphql/schema.graphql"
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-graphql-request
+    config:
+      rawRequest: true
+      gqlImport: graphql-tag
+      scalars:
+        Long: number
+        Base64String: string
+        LocalDate: string
+        LocalDateTime: string
+        ZonedDateTime: string
+        UNREPRESENTABLE: unknown
+        ObjectScalar: unknown
