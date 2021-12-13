@@ -90,7 +90,6 @@ export function ExpressTrack({
   reached,
   timeframe,
 }: Props) {
-  // reached add 
   return (
     <div className="mb-9 max-w-64 h-8 float-right">
       <div
