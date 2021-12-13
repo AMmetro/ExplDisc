@@ -4,6 +4,7 @@ import type {ReactNode} from 'react'
 import {QuestionMarkTooltip} from './ui/icons'
 
 type Props = {
+  // reached add
   message: ReactNode
   daysLeft: number
 }
