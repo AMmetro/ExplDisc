@@ -1,0 +1,32 @@
+[
+  {
+    "href": "https://www.thefreedomrevolution.com/",
+    "id": "296e2e40e7c2",
+    "defaultMessage": "The Freedom Revolution",
+    "description": "dropdown menu The Freedom revolution"
+  },
+  {
+    "href": "https://www.juiceplusinsights.com/",
+    "id": "840b5eeb092s",
+    "defaultMessage": "Juice Plus Insights",
+    "description": "dropdown menu Juice Plus Insights"
+  },
+  {
+    "href": "https://rise.articulate.com/share/F09E8FzfSKsZ9bMu5R7LFWO7P9cjDgm-#/",
+    "id": "1ff9a00185ed3",
+    "defaultMessage": "Myjuiceplus Tutorials",
+    "description": "dropdown menu Myjuiceplus Tutorials"
+  },
+  {
+    "href": "https://www.juicepluspromotions.com/",
+    "id": "139593r46795",
+    "defaultMessage": "Juice Plus Promotions",
+    "description": "dropdown menu What's New?"
+  },
+  {
+    "href": "/api/login/lms",
+    "id": "639213s23752",
+    "defaultMessage": "Juice Plus+ Hub",
+    "description": "dropdown menu Juice Plus Hub"
+  }
+]

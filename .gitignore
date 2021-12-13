@@ -1,0 +1,14 @@
+.DS_STORE
+.idea
+
+node_modules/
+
+/.next
+
+/.env
+/.env.*
+!/.env.example
+
+# Generated
+/src/juiceplus/atd/sdk.ts
+/src/lib/i18n/translations/

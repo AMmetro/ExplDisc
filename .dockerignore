@@ -1,0 +1,5 @@
+node_modules/
+/.cache
+/.next
+/src/i18n
+/src/lib/juiceplus/atd/sdk.ts
