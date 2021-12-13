@@ -1,0 +1,9 @@
+[
+  { "country": "US", "language": "en" },
+  { "country": "US", "language": "es" },
+  { "country": "MX", "language": "en" },
+  { "country": "MX", "language": "es" },
+  { "country": "CA", "language": "en" },
+  { "country": "CA", "language": "fr" },
+  { "country": "IE", "language": "en" }
+]
