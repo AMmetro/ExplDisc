@@ -35,15 +35,29 @@ const randomPromotionalProductVolumeRule = () => {
   const maxHouseholdPPVAllowed = faker.datatype.number(10000)
   const maxPerLinePPVPercentage = faker.datatype.number(100)
   return {
+    // ---- Added more lines -------- !!!!!!!!!!!!!!!!!
     rule: {
       _type_: 'PromotionalProductVolumeRule',
-      promotionalProductVolumeRequired: required,
-      maxHouseholdPPVAllowed,
-      maxPerLinePPVPercentage,
+      sequence: 0,
+      shouldIncludeProgressPercentage: null,
+      promotionalProductVolumeRequired: 10800,
+      maxTreeDepthEvaluated: 1,
+      maxPerLinePPVPercentage: 60,
+      maxHouseholdPPVAllowed: null,
+      excludeDownlineCustomerOrders: null,
+      // _type_: 'PromotionalProductVolumeRule',
+      // promotionalProductVolumeRequired: required,
+      // maxHouseholdPPVAllowed,
+      // maxPerLinePPVPercentage,
     },
+    // ---- Added more lines -------- !!!!!!!!!!!!!!!!!
     result: {
       _type_: 'PromotionalProductVolumeResult',
-      promotionalProductVolumeAchieved: achieved,
+      promotionalProductVolumeAchieved: 222,
+      maxDownlineVolume: 0,
+      householdVolume: 0,
+      // _type_: 'PromotionalProductVolumeResult',
+      // promotionalProductVolumeAchieved: achieved,
     },
     ruleEvaluationStatus: randomRuleEvaluationStatus(),
     ruleProgressPercentage: randomPercent(),
@@ -54,6 +68,7 @@ const randomRules = () => [
   randomPromotionalProductVolumeRule(),
   randomPersonalCustomerVolumeRule(),
   {
+    //=============-> N O T   F O U N D <--=========  !!!!!!!!!!!!!!!!!
     rule: {
       _type_: 'CustomerOrderRule',
       totalCustomerOrdersRequired: faker.datatype.number({
@@ -61,6 +76,7 @@ const randomRules = () => [
         max: 5,
       }),
     },
+    //=============-> N O T   F O U N D <--=========  !!!!!!!!!!!!!!!!!
     result: {
       _type_: 'CustomerOrderResult',
       totalCustomerOrdersAchieved: faker.datatype.number({
@@ -72,44 +88,68 @@ const randomRules = () => [
     ruleProgressPercentage: randomPercent(),
   },
   {
+    // -- Replaces --------- !!!!!!!!!!!!!!!!!!!!
     rule: {
       _type_: 'PersonalOrderRule',
-      personalOrdersRequired: faker.datatype.number({
-        min: 0,
-        max: 5,
-      }),
+      sequence: 3,
+      shouldIncludeProgressPercentage: null,
+      personalOrdersRequired: 1,
+      queueWhenUnsatisfied: true,
+      // _type_: 'PersonalOrderRule',
+      // personalOrdersRequired: faker.datatype.number({
+      //   min: 0,
+      //   max: 5,
+      // }),
     },
+    // -- Replaces --------- !!!!!!!!!!!!!!!!!!!!
     result: {
       _type_: 'PersonalOrderResult',
-      personalOrdersAchieved: faker.datatype.number({
-        min: 0,
-        max: 5,
-      }),
+      personalOrdersAchieved: 4,
+      // _type_: 'PersonalOrderResult',
+      // personalOrdersAchieved: faker.datatype.number({
+      //   min: 0,
+      //   max: 5,
+      // }),
     },
     ruleEvaluationStatus: randomRuleEvaluationStatus(),
     ruleProgressPercentage: randomPercent(),
   },
   {
+    // -- P U T --------- !!!!!!!!!!!!!!!!!!!!
     rule: {
       _type_: 'PaymentMethodRule',
+      sequence: 4,
+      shouldIncludeProgressPercentage: null,
+      maxOrdersPerPaymentMethod: 8,
+      queueWhenUnsatisfied: true,
     },
+    // -- P U T --------- !!!!!!!!!!!!!!!!!!!!
     result: {
       _type_: 'PaymentMethodResult',
+      maxOrdersPaymentMethodUsed: 0,
     },
     ruleEvaluationStatus: randomRuleEvaluationStatus(),
     ruleProgressPercentage: randomPercent(),
   },
   {
+    // -- P U T --------- !!!!!!!!!!!!!!!!!!!!
     rule: {
       _type_: 'CheckHoldRule',
+      sequence: 5,
+      shouldIncludeProgressPercentage: null,
+      excludedCheckHoldCodes: ['PCI'],
+      queueWhenUnsatisfied: null,
     },
+    // -- P U T --------- !!!!!!!!!!!!!!!!!!!!
     result: {
       _type_: 'CheckHoldResult',
+      checkHoldCodes: [],
     },
     ruleEvaluationStatus: randomRuleEvaluationStatus(),
     ruleProgressPercentage: randomPercent(),
   },
   {
+    // -- P U T --------- !!!!!!!!!!!!!!!!!!!!
     rule: {
       _type_: 'TeamStructureRule',
       sequence: 2,
@@ -135,9 +175,25 @@ const randomRules = () => [
       maxTreeDepthEvaluated: null,
       separateDownlines: 3,
     },
+    // -- P U T  --------- !!!!!!!!!!!!!!!!!!!!
     result: {
-      // TeamStructureResult !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       _type_: 'TeamStructureResult',
+      overallTeamMemberResults: [
+        {
+          _type_: 'OverallTeamMemberResult',
+          teamMembersAchieved: 1,
+          teamMembersLevelRequired: 2,
+          totalCustomerOrders: null,
+          satisfyingFrontlinePartnerIds: [491870],
+        },
+        {
+          _type_: 'OverallTeamMemberResult',
+          teamMembersAchieved: 1,
+          teamMembersLevelRequired: 3,
+          totalCustomerOrders: null,
+          satisfyingFrontlinePartnerIds: [491870],
+        },
+      ],
     },
     ruleEvaluationStatus: randomRuleEvaluationStatus(),
     ruleProgressPercentage: randomPercent(),
@@ -146,6 +202,7 @@ const randomRules = () => [
 
 export const mockPromotionProgress = () => ({
   levelRankToBeEvaluated: randomRank(),
+  // "levelRankToBeEvaluated": 4,    <----should replace ????????????????!!!!!!!!!!!!!!!!!!!!!
   trackResults: [
     {
       trackType: 'Express Track',
