@@ -4,21 +4,18 @@ import type {ReactNode} from 'react'
 import {QuestionMarkTooltip} from './ui/icons'
 
 type Props = {
-  reached: boolean 
   message: ReactNode
   daysLeft: number
 }
 
-export function ExpressTooltip({message, daysLeft, reached}: Props) {
+export function ExpressTooltip({message, daysLeft}: Props) {
   return (
     <div>
       <div className="relative group">
         <QuestionMarkTooltip
           className={classNames(
             'group-hover:text-orange-hover group-hover:cursor-pointer text-24',
-            daysLeft > 0 || reached 
-            ? 'bg-plum-light text-beet' 
-            : 'bg-grey-6 text-grey-3'
+            daysLeft > 0 ? 'bg-plum-light text-beet' : 'bg-grey-6 text-grey-3'
           )}
         />
         <div className="group-hover:block absolute -top-5 bg-white min-w-[295px] -translate-y-full -translate-x-64 border border-grey-6 rounded-[10px] z-auto shadow-tooltip hidden">
