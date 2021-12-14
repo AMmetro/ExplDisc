@@ -205,7 +205,6 @@ export function DashboardPromotionContent({
                 expressRewards={expressTrack.rewards}
                 promotionRewards={track.rewards}
                 reached={isEligibleForPromotion(expressTrack)}
-                submitted={submitted}
                 timeframe={expressTimeframe}
               />
             )}

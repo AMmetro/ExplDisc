@@ -57,14 +57,14 @@ export type EvaluationDateType = TypeOf<typeof evaluationDateType>
 const ruleEvaluationStatus = z.enum(['Successful', 'Queued', 'Failed'])
 
 export type RuleEvaluationStatus = TypeOf<typeof ruleEvaluationStatus>
-
+// описане - проверка данных которе пришли с бэка тайпинги !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 const trackTime = z.object({
   periodsEvaluated: z.number().nullable(),
   temporalUnit: evaluationTemporalUnit.nullable(),
   evaluateFromDate: evaluationDateType,
   numberOfDaysLeftForPromotion: z.number().nullable(),
 })
-
+// возвращает типы !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 export type TrackTime = TypeOf<typeof trackTime>
 
 const trackEvaluationStatus = z.enum(['Successful', 'Queued', 'Failed'])
@@ -124,7 +124,8 @@ export const promotionalProductVolumeRule = z.object({
 export type PromotionalProductVolumeRule = TypeOf<
   typeof promotionalProductVolumeRule
 >
-
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// overallTeamMemberRules=z.Array.....
 export const teamStructureRule = z.object({
   _type_: z.literal('TeamStructureRule'),
 })
@@ -282,9 +283,12 @@ export async function getPromotionProgress(
     console.error(await response.json())
     throw new Error('Could not fetch promotion progress')
   }
-
+  // до парса!!!!!!!!!!!!!!!! Z библиотека парс - проверяет соответсвие данных с бэка тайпскрипта факту
+  // до SDK  = зот бибилитека
   const data = await response.json()
-
+  // !!!!!!!!!!!!!!!!!!!!!! DATA=JSON===========================!!!!!!!!!!
+  let xxxxxxxxxx = evaluationResult.parse(data)
+  console.log(xxxxxxxxxx)
   return evaluationResult.parse(data)
 }
 

@@ -112,8 +112,31 @@ const randomRules = () => [
   {
     rule: {
       _type_: 'TeamStructureRule',
+      sequence: 2,
+      shouldIncludeProgressPercentage: null,
+      overallTeamMemberRules: [
+        {
+          _type_: 'OverallTeamMemberRule',
+          sequence: 0,
+          shouldIncludeProgressPercentage: null,
+          teamMembersRequired: 1,
+          teamMembersLevelRequired: 2,
+          totalCustomerOrdersRequired: null,
+        },
+        {
+          _type_: 'OverallTeamMemberRule',
+          sequence: 1,
+          shouldIncludeProgressPercentage: null,
+          teamMembersRequired: 2,
+          teamMembersLevelRequired: 3,
+          totalCustomerOrdersRequired: null,
+        },
+      ],
+      maxTreeDepthEvaluated: null,
+      separateDownlines: 3,
     },
     result: {
+      // TeamStructureResult !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       _type_: 'TeamStructureResult',
     },
     ruleEvaluationStatus: randomRuleEvaluationStatus(),

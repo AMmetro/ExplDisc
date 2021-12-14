@@ -11,18 +11,18 @@ type ExpressTooltipMessageProps = {
     duration: number
     temporalUnit: TrackTimeUnit
   }
-  daysLeft: number
+  isExpired: boolean
   expressRewards: Rewards
   promotionRewards: Rewards
 }
 
 function ExpressTooltipMessage({
-  daysLeft,
+  isExpired,
   expressRewards,
   promotionRewards,
   timeframe,
 }: ExpressTooltipMessageProps) {
-  if (daysLeft < 0) {
+  if (isExpired) {
     return (
       <FormattedMessage
         id="152ea022d847"
@@ -74,7 +74,6 @@ type Props = {
   daysLeft: number
   expressRewards: Rewards
   promotionRewards: Rewards
-  submitted: boolean
   reached: boolean
   timeframe: {
     duration: number
@@ -86,22 +85,24 @@ export function ExpressTrack({
   daysLeft,
   expressRewards,
   promotionRewards,
-  submitted,
   reached,
   timeframe,
 }: Props) {
+  const isInProgress = !reached && daysLeft > 0
+  const isExpired = !reached && daysLeft <= 0
+
   return (
     <div className="mb-9 max-w-64 h-8 float-right">
       <div
         className={classNames(
           'text-13 flex flex-row rounded-l-full items-center h-8',
-          daysLeft > 0 ? 'bg-plum-light text-beet' : 'bg-grey-6 text-grey-3'
+          isExpired ? 'bg-grey-6 text-grey-3' : 'bg-plum-light text-beet'
         )}
       >
         <div className="ml-4 mr-3 my-2">
           <RushClock className="text-16" />
         </div>
-        {daysLeft > 0 && !submitted && !reached && (
+        {isInProgress && (
           <div className="inset-0 flex justify-center font-bold mr-3">
             <FormattedMessage
               id="e105008d1a6d"
@@ -116,11 +117,10 @@ export function ExpressTrack({
 
         <div className="mr-6 my-1 hover:text-orange-hover">
           <ExpressTooltip
-            daysLeft={daysLeft}
             message={
               <ExpressTooltipMessage
                 timeframe={timeframe}
-                daysLeft={daysLeft}
+                isExpired={isExpired}
                 expressRewards={expressRewards}
                 promotionRewards={promotionRewards}
               />

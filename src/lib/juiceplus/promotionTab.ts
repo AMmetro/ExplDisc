@@ -1,3 +1,4 @@
+// тайпинги с partnet loyalty
 import type {
   EvaluationResult,
   EvaluationRuleResult,
@@ -207,7 +208,8 @@ function transformPromotionalProductVolumeRuleResult(
 export type TeamStructureRule = {
   type: 'teamStructure'
 }
-
+// функция берет теам структуре рулы !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// console.log
 function transformTeamStructureRuleResult(
   ruleResult: EvaluationRuleResult
 ): TeamStructureRule {
@@ -491,7 +493,7 @@ export function transformEvaluationResult(
   promotionProgress: EvaluationResult
 ): PromotionTab {
   const {levelRankToBeEvaluated, trackResults} = promotionProgress
-
+  // результирующий оттрансфримрованный объект
   return {
     visible: true,
     levelRankToBeEvaluated,
