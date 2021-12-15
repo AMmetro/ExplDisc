@@ -57,14 +57,13 @@ export type EvaluationDateType = TypeOf<typeof evaluationDateType>
 const ruleEvaluationStatus = z.enum(['Successful', 'Queued', 'Failed'])
 
 export type RuleEvaluationStatus = TypeOf<typeof ruleEvaluationStatus>
-// описане - проверка данных которе пришли с бэка тайпинги !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 const trackTime = z.object({
   periodsEvaluated: z.number().nullable(),
   temporalUnit: evaluationTemporalUnit.nullable(),
   evaluateFromDate: evaluationDateType,
   numberOfDaysLeftForPromotion: z.number().nullable(),
 })
-// возвращает типы !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 export type TrackTime = TypeOf<typeof trackTime>
 
 const trackEvaluationStatus = z.enum(['Successful', 'Queued', 'Failed'])
@@ -73,6 +72,11 @@ export type TrackEvaluationStatus = TypeOf<typeof trackEvaluationStatus>
 
 export const checkHoldRule = z.object({
   _type_: z.literal('CheckHoldRule'),
+  // added next lines !!!!!
+  // sequence: z.number(),
+  // shouldIncludeProgressPercentage: z.number().nullable(),
+  // excludedCheckHoldCodes: z.string().array(), // ????? ['PCI'] correct description ?
+  // queueWhenUnsatisfied: z.number().nullable(),
 })
 
 export type CheckHoldRule = TypeOf<typeof checkHoldRule>
@@ -95,6 +99,11 @@ export type PersonalCustomerVolumeRule = TypeOf<
 
 export const paymentMethodRule = z.object({
   _type_: z.literal('PaymentMethodRule'),
+  // !!!!! add next lines ненужно
+  // sequence: z.number(),
+  // shouldIncludeProgressPercentage: z.number().nullable(),
+  // maxOrdersPerPaymentMethod: z.number(),
+  // queueWhenUnsatisfied: z.boolean(),
 })
 
 export type PaymentMethodRule = TypeOf<typeof paymentMethodRule>
@@ -110,6 +119,10 @@ export type PerformanceBonusVolumeRule = TypeOf<
 export const personalOrderRule = z.object({
   _type_: z.literal('PersonalOrderRule'),
   personalOrdersRequired: z.number(),
+  // !!!!! =added more types down here= ненужно
+  // sequence: z.number(),
+  // shouldIncludeProgressPercentage: z.number().nullable(),
+  // queueWhenUnsatisfied: z.boolean(),
 })
 
 export type PersonalOrderRule = TypeOf<typeof personalOrderRule>
@@ -119,15 +132,37 @@ export const promotionalProductVolumeRule = z.object({
   promotionalProductVolumeRequired: z.number(),
   maxHouseholdPPVAllowed: z.number().nullable(),
   maxPerLinePPVPercentage: z.number().nullable(),
+  // !!!!!  =added more types down here= ненужно
+  // sequence: z.number(),
+  // shouldIncludeProgressPercentage: z.number().nullable(),
+  // maxTreeDepthEvaluated: z.number(),
+  // excludeDownlineCustomerOrders: z.number().nullable(),
 })
 
 export type PromotionalProductVolumeRule = TypeOf<
   typeof promotionalProductVolumeRule
 >
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// overallTeamMemberRules=z.Array.....
+// !!!!!  =added types=      Names Rule or rule"S" ???
+export const overallTeamMemberRule = z.object({
+  _type_: z.literal('OverallTeamMemberRule'), //not allowed add literals ?????!!!!!
+  sequence: z.number(),
+  teamMembersRequired: z.number(),
+  teamMembersLevelRequired: z.number(),
+  shouldIncludeProgressPercentage: z.number().nullable(),
+  totalCustomerOrdersRequired: z.number().nullable(),
+})
+
+// export type OverallTeamMemberRule = TypeOf<typeof overallTeamMemberRule>
+
 export const teamStructureRule = z.object({
   _type_: z.literal('TeamStructureRule'),
+  // added next lines !!!!!
+  sequence: z.number(),
+  shouldIncludeProgressPercentage: z.number().nullable(),
+  // maxTreeDepthEvaluated: z.number().nullable(),
+  // separateDownlines: z.number().nullable(),
+  overallTeamMemberRules: z.array(overallTeamMemberRule), //is this correct implementation ?????
+  // overallTeamMemberRules: z.array(Experement),
 })
 
 export type TeamStructureRule = TypeOf<typeof teamStructureRule>
@@ -154,9 +189,12 @@ export const loyaltyRule = checkHoldRule
   .or(teamStructureRule)
   .or(secondaryBonusRule)
   .or(rapidPromotionDelayRule)
+// ----------------------------------!!!!! Added more rules here ????
+// .or(overallTeamMemberRule)
 
 export const checkHoldResult = z.object({
   _type_: z.literal('CheckHoldResult'),
+  // checkHoldCodes: z.any().array(), // Как описать [], ?????
 })
 
 export type CheckHoldResult = TypeOf<typeof checkHoldResult>
@@ -179,6 +217,8 @@ export type PersonalCustomerVolumeResult = TypeOf<
 
 export const paymentMethodResult = z.object({
   _type_: z.literal('PaymentMethodResult'),
+  // added next lines !!!!! ненужно
+  // maxOrdersPaymentMethodUsed: z.number(),
 })
 
 export type PaymentMethodResult = TypeOf<typeof paymentMethodResult>
@@ -201,14 +241,29 @@ export type PersonalOrderResult = TypeOf<typeof personalOrderResult>
 export const promotionalProductVolumeResult = z.object({
   _type_: z.literal('PromotionalProductVolumeResult'),
   promotionalProductVolumeAchieved: z.number(),
+  // added two more lines here !!!!! ненужно
+  // maxDownlineVolume: z.number(),
+  // householdVolume: z.number(),
 })
 
 export type PromotionalProductVolumeResult = TypeOf<
   typeof promotionalProductVolumeResult
 >
 
+// added next line here !!!!!
+// export const overallTeamMemberResult = z.object({
+//   _type_: z.literal('OverallTeamMemberResult'),
+//   teamMembersAchieved: z.number(),
+//   teamMembersLevelRequired: z.number(),
+//   totalCustomerOrders: z.number().nullable(),
+//   satisfyingFrontlinePartnerIds: z.number().array(), // how describe [491870] ?????!!!!!
+// })
+
+// export type OverallTeamMemberResult = TypeOf<typeof overallTeamMemberResult>
+
 export const teamStructureResult = z.object({
   _type_: z.literal('TeamStructureResult'),
+  // overallTeamMemberResults: z.array(overallTeamMemberResult), ????
 })
 
 export type TeamStructureResult = TypeOf<typeof teamStructureResult>
@@ -235,6 +290,8 @@ export const loyaltyResult = checkHoldResult
   .or(teamStructureResult)
   .or(secondaryBonusPaidResult)
   .or(rapidPromotionDelayResult)
+// add more types !!!!!
+// .or(overallTeamMemberResult)
 
 export type LoyaltyRule = TypeOf<typeof loyaltyRule>
 
@@ -283,12 +340,14 @@ export async function getPromotionProgress(
     console.error(await response.json())
     throw new Error('Could not fetch promotion progress')
   }
-  // до парса!!!!!!!!!!!!!!!! Z библиотека парс - проверяет соответсвие данных с бэка тайпскрипта факту
+
+  // до парса!!!!! Z библиотека парс - проверяет соответсвие данных с бэка тайпскрипта факту
   // до SDK  = зот бибилитека
   const data = await response.json()
-  // !!!!!!!!!!!!!!!!!!!!!! DATA=JSON===========================!!!!!!!!!!
-  let xxxxxxxxxx = evaluationResult.parse(data)
-  console.log(xxxxxxxxxx)
+  // console.log('--------------ZOT lib------------------')
+  // let ZOTlib = evaluationResult.parse(data)
+  // console.log(ZOTlib)
+  // console.log('---------------------------------------')
   return evaluationResult.parse(data)
 }
 

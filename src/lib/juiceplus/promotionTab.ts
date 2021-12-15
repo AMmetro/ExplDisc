@@ -10,6 +10,7 @@ import type {
   RuleEvaluationStatus,
   Rewards,
   TrackEvaluationStatus,
+  //OverallTeamMemberRule, // import this typing!!!!!
 } from './sdk/partner-loyalty'
 
 export type CheckHoldRule = {
@@ -208,8 +209,7 @@ function transformPromotionalProductVolumeRuleResult(
 export type TeamStructureRule = {
   type: 'teamStructure'
 }
-// функция берет теам структуре рулы !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// console.log
+// функция берет теам структуре рулы console.log !!!!!
 function transformTeamStructureRuleResult(
   ruleResult: EvaluationRuleResult
 ): TeamStructureRule {
@@ -493,7 +493,15 @@ export function transformEvaluationResult(
   promotionProgress: EvaluationResult
 ): PromotionTab {
   const {levelRankToBeEvaluated, trackResults} = promotionProgress
-  // результирующий оттрансфримрованный объект
+  // результирующий оттрансфримрованный объект !!!!!
+  // console.log('-----promotionProgress------------')
+  // console.log(promotionProgress)
+  // уже провереренное пришедшее с бэка и исключено лишнее
+
+  console.log('-----trackResults------------')
+  let xx = transformTrackResults(trackResults)
+  console.log(xx)
+
   return {
     visible: true,
     levelRankToBeEvaluated,
