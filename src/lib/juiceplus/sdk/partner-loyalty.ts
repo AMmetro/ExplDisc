@@ -144,7 +144,7 @@ export type PromotionalProductVolumeRule = TypeOf<
 >
 // !!!!!  =added types=      Names Rule or rule"S" ???
 export const overallTeamMemberRule = z.object({
-  _type_: z.literal('OverallTeamMemberRule'), //not allowed add literals ?????!!!!!
+  _type_: z.literal('OverallTeamMemberRule'), //allowed add literals !!!!!
   sequence: z.number(),
   teamMembersRequired: z.number(),
   teamMembersLevelRequired: z.number(),
@@ -152,7 +152,7 @@ export const overallTeamMemberRule = z.object({
   totalCustomerOrdersRequired: z.number().nullable(),
 })
 
-// export type OverallTeamMemberRule = TypeOf<typeof overallTeamMemberRule>
+export type OverallTeamMemberRule = TypeOf<typeof overallTeamMemberRule>
 
 export const teamStructureRule = z.object({
   _type_: z.literal('TeamStructureRule'),
@@ -251,19 +251,19 @@ export type PromotionalProductVolumeResult = TypeOf<
 >
 
 // added next line here !!!!!
-// export const overallTeamMemberResult = z.object({
-//   _type_: z.literal('OverallTeamMemberResult'),
-//   teamMembersAchieved: z.number(),
-//   teamMembersLevelRequired: z.number(),
-//   totalCustomerOrders: z.number().nullable(),
-//   satisfyingFrontlinePartnerIds: z.number().array(), // how describe [491870] ?????!!!!!
-// })
+export const overallTeamMemberResult = z.object({
+  _type_: z.literal('OverallTeamMemberResult'),
+  teamMembersAchieved: z.number(),
+  teamMembersLevelRequired: z.number(),
+  totalCustomerOrders: z.number().nullable(),
+  satisfyingFrontlinePartnerIds: z.number().array(), // how describe [491870] ?????!!!!!
+})
 
-// export type OverallTeamMemberResult = TypeOf<typeof overallTeamMemberResult>
+export type OverallTeamMemberResult = TypeOf<typeof overallTeamMemberResult>
 
 export const teamStructureResult = z.object({
   _type_: z.literal('TeamStructureResult'),
-  // overallTeamMemberResults: z.array(overallTeamMemberResult), ????
+  overallTeamMemberResults: z.array(overallTeamMemberResult), //????
 })
 
 export type TeamStructureResult = TypeOf<typeof teamStructureResult>
@@ -341,13 +341,14 @@ export async function getPromotionProgress(
     throw new Error('Could not fetch promotion progress')
   }
 
-  // до парса!!!!! Z библиотека парс - проверяет соответсвие данных с бэка тайпскрипта факту
-  // до SDK  = зот бибилитека
   const data = await response.json()
+
+  // тут проверка данных на соответсвие их типам в ЗОТ
   // console.log('--------------ZOT lib------------------')
   // let ZOTlib = evaluationResult.parse(data)
-  // console.log(ZOTlib)
-  // console.log('---------------------------------------')
+  // console.log(ZOTlib.trackResults[1].trackRuleResults[6].rule.overallTeamMemberRules)
+  // console.log(ZOTlib.trackResults[1].trackRuleResults[6].result.overallTeamMemberResults)
+
   return evaluationResult.parse(data)
 }
 

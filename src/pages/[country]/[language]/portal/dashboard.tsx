@@ -131,7 +131,7 @@ export let getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
 
     // console.log('-----------byPartnerId---------------')
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
+    // @ts-ignore
     // console.log(byPartnerId.dashboard.data?.promotion.tracks.express.trackTime)
     // ----------------------!!!!!!!!!!!!!!!!!!!!!!!!----------
     let locale = extractRouterLocale(ctx.query)

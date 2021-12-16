@@ -255,6 +255,19 @@ export let byCurrentPartner = async (
   })
   const promotionProgress = await getPromotionProgress(id)
 
+  // console.log('----promotionProgress------')
+  // console.log(promotionProgress)
+  // console.log(promotionProgress.trackResults[1].trackRuleResults[6].rule.overallTeamMemberRules)
+  // console.log(promotionProgress.trackResults[1].trackRuleResults[6].overallTeamMemberResults)
+
+  // console.log('----atdDashboard------')
+  // console.log(atdDashboard)
+
+  // let yyy = parser.parse({...atdDashboard.data, promotionProgress})
+
+  // console.log('----after parcer parse Data: ------')
+  // console.log(yyy.dashboard.data)
+
   return parser.parse({
     ...atdDashboard.data,
     promotionProgress,

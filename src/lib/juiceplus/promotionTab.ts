@@ -10,6 +10,8 @@ import type {
   RuleEvaluationStatus,
   Rewards,
   TrackEvaluationStatus,
+  // TeamStructureRule, // import this typing!!!!! - дублируется ниже
+  TeamStructureResult, // import this typing!!!!!
   //OverallTeamMemberRule, // import this typing!!!!!
 } from './sdk/partner-loyalty'
 
@@ -206,9 +208,11 @@ function transformPromotionalProductVolumeRuleResult(
   }
 }
 
+//  закоментирован старый тип
 export type TeamStructureRule = {
   type: 'teamStructure'
 }
+
 // функция берет теам структуре рулы console.log !!!!!
 function transformTeamStructureRuleResult(
   ruleResult: EvaluationRuleResult
@@ -493,14 +497,18 @@ export function transformEvaluationResult(
   promotionProgress: EvaluationResult
 ): PromotionTab {
   const {levelRankToBeEvaluated, trackResults} = promotionProgress
-  // результирующий оттрансфримрованный объект !!!!!
-  // console.log('-----promotionProgress------------')
-  // console.log(promotionProgress)
-  // уже провереренное пришедшее с бэка и исключено лишнее
 
-  console.log('-----trackResults------------')
-  let xx = transformTrackResults(trackResults)
-  console.log(xx)
+  // входной объект !!!!!
+  // console.log('-----trackResults------------')
+  // console.log(trackResults[0].trackRuleResults[6].rule)
+  // console.log(trackResults[0].trackRuleResults[6].result)
+
+  // результирующий оттрансфримрованный объект !!!!!
+  // console.log('-----transformTrackResults------------')
+  // let result = transformTrackResults(trackResults)
+  // console.log(result.express.rules.teamStructure)
+  // console.log(result.cumulative.rules.teamStructure)
+  // console.log(result.promotion.rules.teamStructure)
 
   return {
     visible: true,
