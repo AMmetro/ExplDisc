@@ -1,0 +1,14 @@
+[
+  {
+    "type": "terms-of-use",
+    "href": "/terms-of-use"
+  },
+  {
+    "type": "privacy-policy",
+    "href": "/privacy-cookie-policy"
+  },
+  {
+    "type": "return-policy",
+    "href": "/product-return-policy"
+  }
+]
