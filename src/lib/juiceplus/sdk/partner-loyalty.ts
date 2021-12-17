@@ -347,7 +347,13 @@ export async function getPromotionProgress(
   // console.log('--------------ZOT lib------------------')
   // let ZOTlib = evaluationResult.parse(data)
   // console.log(ZOTlib.trackResults[1].trackRuleResults[6].rule.overallTeamMemberRules)
-  // console.log(ZOTlib.trackResults[1].trackRuleResults[6].result.overallTeamMemberResults)
+  // if (
+  //   ZOTlib.trackResults[1].trackRuleResults[6].result._type_ ===
+  //   'TeamStructureResult'
+  // )
+  //   console.log(
+  //     ZOTlib.trackResults[1].trackRuleResults[6].result.overallTeamMemberResults
+  //   )
 
   return evaluationResult.parse(data)
 }

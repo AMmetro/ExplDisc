@@ -1,4 +1,5 @@
 // тайпинги с partnet loyalty
+import type {TeamStructureResult} from './sdk/partner-loyalty' //**** added import of typesation
 import type {
   EvaluationResult,
   EvaluationRuleResult,
@@ -11,7 +12,7 @@ import type {
   Rewards,
   TrackEvaluationStatus,
   // TeamStructureRule, // import this typing!!!!! - дублируется ниже
-  TeamStructureResult, // import this typing!!!!!
+  // TeamStructureResult, // import this typing!!!!!
   //OverallTeamMemberRule, // import this typing!!!!!
 } from './sdk/partner-loyalty'
 
@@ -199,6 +200,7 @@ function transformPromotionalProductVolumeRuleResult(
     )
   }
 
+  // аналогично этой сделать
   return {
     type: 'promotionalProductVolume',
     requiredValue: rule.promotionalProductVolumeRequired,
@@ -208,16 +210,50 @@ function transformPromotionalProductVolumeRuleResult(
   }
 }
 
-//  закоментирован старый тип
+//  предыдущий тип --> изменен     !!!!
+// export type TeamStructureRule = {
+//   type: 'teamStructure'
+// }
 export type TeamStructureRule = {
   type: 'teamStructure'
+
+  // requiredValue: Record<string, unknown>
+
+  requiredValue: {
+    _type_: 'TeamStructureRule'
+    shouldIncludeProgressPercentage: number | null
+    sequence: number
+    overallTeamMemberRules: Array<{
+      _type_: 'OverallTeamMemberRule'
+      sequence: number
+      shouldIncludeProgressPercentage: number | null
+      teamMembersLevelRequired: number
+      teamMembersRequired: number
+      totalCustomerOrdersRequired: number | null
+    }>
+  }
+
+  // achievedValue: Record<string, unknown>
+
+  achievedValue: TeamStructureResult
+
+  // achievedValue: {
+  //   _type_: 'TeamStructureResult'
+  //   overallTeamMemberResult: Array<{
+  //     _type_: 'OverallTeamMemberResult'
+  //     teamMembersAchieved: number
+  //     teamMembersLevelRequired: number
+  //     totalCustomerOrders: number | null
+  //     satisfyingFrontlinePartnerIds: Array<number>
+  //   }>
+  // }
 }
 
-// функция берет теам структуре рулы console.log !!!!!
 function transformTeamStructureRuleResult(
   ruleResult: EvaluationRuleResult
 ): TeamStructureRule {
   const {rule} = ruleResult
+  const {result} = ruleResult
 
   if (rule._type_ !== 'TeamStructureRule') {
     throw new Error(
@@ -225,8 +261,45 @@ function transformTeamStructureRuleResult(
     )
   }
 
+  if (result._type_ !== 'TeamStructureResult') {
+    throw new Error(
+      `Could not transform ${rule._type_} into team structure rule`
+    )
+  }
+
+  if (ruleResult.rule._type_ !== 'TeamStructureRule') {
+    throw new Error(
+      `Could not transform ${rule._type_} into team structure rule`
+    )
+  }
+  if (ruleResult.result._type_ !== 'TeamStructureResult') {
+    console.log()
+  }
+
+  // if (ruleResult.result._type_ === 'TeamStructureResult') {
+  //   console.log(ruleResult.result.overallTeamMemberResults)
+  // }
+  // if (ruleResult.rule._type_ === 'TeamStructureRule') {
+  //   console.log(ruleResult.rule.overallTeamMemberRules)
+  // }
+
   return {
     type: 'teamStructure',
+    //!!!!! added next lines
+    requiredValue: ruleResult.rule,
+    achievedValue: result,
+    // achievedValue: {
+    //   _type_: 'TeamStructureResult',
+    //   overallTeamMemberResult: [
+    //     {
+    //       _type_: 'OverallTeamMemberResult',
+    //       teamMembersAchieved: 1,
+    //       teamMembersLevelRequired: 2,
+    //       totalCustomerOrders: null,
+    //       satisfyingFrontlinePartnerIds: [491870],
+    //     },
+    //   ],
+    // },
   }
 }
 
@@ -302,8 +375,8 @@ const ruleResultTransformers = {
   PaymentMethodRule: transformPaymentMethodRuleResult,
   PerformanceBonusVolumeRule: transformPerformanceBonusVolumeRuleResult,
   PersonalOrderRule: transformPersonalOrderRuleResult,
-  PromotionalProductVolumeRule: transformPromotionalProductVolumeRuleResult,
-  TeamStructureRule: transformTeamStructureRuleResult,
+  PromotionalProductVolumeRule: transformPromotionalProductVolumeRuleResult, //????? это не нужно
+  TeamStructureRule: transformTeamStructureRuleResult, //!!!!!
   SecondaryBonusRule: transformSecondaryBonusRuleResult,
   RapidPromotionDelayRule: transformRapidPromotionDelayRuleResult,
 }
@@ -311,17 +384,34 @@ const ruleResultTransformers = {
 function transformTrackRuleResult(
   trackRuleResult: EvaluationRuleResult
 ): PromotionRule {
+  // функция преобразует "имя рула" в {type: короткое имя рула} !!!!!
   return ruleResultTransformers[trackRuleResult.rule._type_](trackRuleResult)
 }
 
 function transformTrackRuleResults(
   trackRuleResults: EvaluationRuleResult[]
 ): PromotionRules {
+  // --------интересующий меня data----------
+  // console.log(trackRuleResults[6].result)
+
   return trackRuleResults.reduce((res, trackRuleResult) => {
+    // --- трансфоромер (преобразует имя рула) см.выше
     const rule = transformTrackRuleResult(trackRuleResult)
+    // console.log('---------trackRuleResult!!!!!----------')
+    // console.log('----' + i + '----')
+    // console.log(trackRuleResult)
+    // console.log('------rule------')
+    // console.log(rule)
+    // let itog = {...res, [rule.type]: rule}
+    // console.log('------------res-------------')
+    // console.log(res)
+    // console.log('----------------------------')
+    // console.log('---------itog!!!!!----------')
+    // console.log(itog)
     return {
       ...res,
-      [rule.type]: rule,
+      // [rule.type]: trackRuleResult,   // rule - original!!!!!!
+      [rule.type]: rule, // - variant
     }
   }, {})
 }
@@ -366,6 +456,7 @@ function transformTrackResult(
     trackRuleResults,
   } = trackResult
 
+  // переименование типа (express cumulative...) на более короткое
   const type = transformLoyaltyTrackType(trackType)
 
   return {
@@ -467,6 +558,9 @@ function transformTrackResults(
 ): PromotionTracks {
   const tracks = trackResults.reduce((res, trackResult) => {
     const track = transformTrackResult(trackResult)
+    // console.log('-------track--------')
+    // console.log(track)
+
     return {
       ...res,
       [track.type]: track,
@@ -504,10 +598,14 @@ export function transformEvaluationResult(
   // console.log(trackResults[0].trackRuleResults[6].result)
 
   // результирующий оттрансфримрованный объект !!!!!
+
   // console.log('-----transformTrackResults------------')
   // let result = transformTrackResults(trackResults)
+  // console.log('-----express------------')
   // console.log(result.express.rules.teamStructure)
+  // console.log('-----cumulative------------')
   // console.log(result.cumulative.rules.teamStructure)
+  // console.log('-----promotion------------')
   // console.log(result.promotion.rules.teamStructure)
 
   return {
