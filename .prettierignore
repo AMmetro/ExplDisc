@@ -1,6 +1,0 @@
-package.json
-package-lock.json
-/.cache/
-/.next/
-/coverage/
-/src/lib/juiceplus/atd/sdk.ts
