@@ -1,0 +1,6 @@
+fragment JpError on JpError {
+  details
+  message
+  status
+  translationKey
+}
