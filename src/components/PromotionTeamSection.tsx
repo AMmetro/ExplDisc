@@ -22,12 +22,13 @@ type CustomerTextWithValue = {
 }
 // ????
 const messages = defineMessages({
-  /* изменить название посути по смыслу  */
+  /* изменить название посути по смыслу --> TeamPartnerResultMessage ????  */
   personalOrder: {
     defaultMessage: 'of {value} {br} Partner+',
     id: '642e4c7491ac',
     description: 'Personal order text',
   },
+  /* TeamQSCResultMessage ???? */
   customerOrder: {
     defaultMessage: 'of {value} {br} QSC ',
     id: '06328bb599a8',
@@ -38,41 +39,29 @@ const messages = defineMessages({
 // ---------------------------------------------------
 
 export function PromotionTeamSection({rule}: Props) {
-  // -------------------add code --------------------------------
-
-  // проверка достигнул ли уровень
-  const ruleLevelpartnerQCSRequired =
+  // -------------------add --------------------------------
+  // проверка достигнул ли уровень-> цвет зеленый
+  const ruleRequiredPartnerQCS =
     rule.requiredValue.overallTeamMemberRules[1].teamMembersRequired
-  const resultLevelpartnerQCSAchieved =
+  const resultLevelAchievedPartnerQCS =
     rule.achievedValue.overallTeamMemberResults[1].teamMembersAchieved
 
-  if (resultLevelpartnerQCSAchieved >= ruleLevelpartnerQCSRequired) {
-    console.log('achived value, set color green for partnerQCS')
-  }
-
-  const ruleLevelPartnerPlusRequired =
+  const ruleRequiredPartnerPlus =
     rule.requiredValue.overallTeamMemberRules[0].teamMembersRequired
-  const resultLevelPartnerPlusAchieved =
+  const resultLevelAchievedPartnerPlus =
     rule.achievedValue.overallTeamMemberResults[0].teamMembersAchieved
 
-  if (resultLevelPartnerPlusAchieved >= ruleLevelPartnerPlusRequired) {
-    console.log('achived value, set color green for partnerPLUS')
-  }
-
-  const showPartnerPlusPromotion =
-    rule.requiredValue.overallTeamMemberRules[0].teamMembersLevelRequired > 0
-
-  const showPartnerQCSPromotion =
-    rule.requiredValue.overallTeamMemberRules[1].teamMembersLevelRequired > 0
-  alert(showPartnerQCSPromotion)
-
-  // console.log(rule.requiredValue.overallTeamMemberRules[1].teamMembersRequired)
-
-  // define color or text
-  const customerProgressComplete = true // mock variable
-  const orderProgressComplete = false // mock variable
-  const showPartnerPlus = true // mock variable
-  const showQSC = true // mock variable
+  // --------------Большое достигнутое значение------------------------
+  const resultAchievedPartnerPlus =
+    rule.achievedValue.overallTeamMemberResults[0].teamMembersAchieved
+  const resultAchievedPartnerQSC =
+    rule.achievedValue.overallTeamMemberResults[1].teamMembersAchieved
+  // ----------------------- 2 & 3 ---------------------------------
+  const ruleLevelRequiredPartnerPlus =
+    rule.requiredValue.overallTeamMemberRules[0]?.teamMembersLevelRequired
+  const ruleLevelRequiredPartnerQCS =
+    rule.requiredValue.overallTeamMemberRules[1]?.teamMembersLevelRequired
+  // -------------------------------------------------------------------
 
   function CustomerTextWithValue({
     messageType,
@@ -95,56 +84,55 @@ export function PromotionTeamSection({rule}: Props) {
   }
   // ---------------------------------------------------
 
-  const partnerPlus =
-    rule.requiredValue.overallTeamMemberRules[0]?.teamMembersLevelRequired
-  const partnerQCS =
-    rule.requiredValue.overallTeamMemberRules[1]?.teamMembersLevelRequired
   return (
     <div className="pl-12 pr-8 w-full" /*w-full added */>
       {/* --------TEAM---------- */}
-      <div
-        className="flex justify-between"
-        style={{backgroundColor: 'lightYellow', width: '100%'}} // !!!!
-      >
+      <div className="flex justify-between">
         <h3 className="uppercase font-bold text-13 text-grey-2">
           <FormattedMessage
-            id="1cea3f8a8484" // ???? вычисляемое значение само
+            id="1cea3f8a8484"
             defaultMessage="Team"
             description="Title for promotion team section" //??? для переводчика
           />
         </h3>
-        <ArrowRightLink href="add new link ???" />
+        <ArrowRightLink href="add new link ????" />
       </div>
 
       {/* -------Partner + ---------- */}
-      {/* ???? */}
-      {showPartnerPlus && (
+      {ruleLevelRequiredPartnerPlus > 0 && (
         <div
           className={classNames(
             'flex flex-row mt-5',
-            customerProgressComplete ? 'text-apple' : 'text-emerald'
+            resultLevelAchievedPartnerPlus >= ruleRequiredPartnerPlus
+              ? 'text-apple'
+              : 'text-emerald'
           )}
         >
           <div
-            className="flex flex-row items-center gap-4"
+            className="flex flex-row items-center gap-4 w-full"
             style={{
               justifyContent: 'space-between',
-              width: '70%',
-            }} // !!!!
+            }}
           >
-            <span className="text-44 text-center font-bold w-8 font-heading">
-              {/* {partnerPlus} */}?
-            </span>
+            <div className=" flex flex-row items-center">
+              <span className="text-44 text-center font-bold w-8 font-heading">
+                {resultAchievedPartnerPlus}
+              </span>
 
-            <CustomerTextWithValue
-              messageType={MessageType.personalOrder}
-              value={partnerPlus}
-              achieved={customerProgressComplete}
-            />
+              <CustomerTextWithValue
+                messageType={MessageType.personalOrder}
+                value={ruleLevelRequiredPartnerPlus}
+                achieved={
+                  resultLevelAchievedPartnerPlus >= ruleRequiredPartnerPlus
+                }
+              />
+            </div>
 
             <div
               className={classNames(
-                customerProgressComplete ? 'text-apple' : 'text-grey-3'
+                resultLevelAchievedPartnerPlus >= ruleRequiredPartnerPlus
+                  ? 'text-apple'
+                  : 'text-grey-3'
               )}
             >
               <GeneralTeams />
@@ -153,31 +141,39 @@ export function PromotionTeamSection({rule}: Props) {
         </div>
       )}
       {/* -----------Q C S -------------- */}
-      {showQSC && (
+      {ruleLevelRequiredPartnerQCS > 0 && (
         <div
           className={classNames(
             'flex flex-row mt-5',
-            orderProgressComplete ? 'text-apple' : 'text-emerald'
+            resultLevelAchievedPartnerQCS >= ruleRequiredPartnerQCS
+              ? 'text-apple'
+              : 'text-emerald'
           )}
         >
           <div
-            className="flex flex-row items-center gap-4"
+            className="flex flex-row items-center gap-4 w-full"
             style={{
               justifyContent: 'space-between',
-              width: '70%',
             }} // !!!!
           >
-            <span className="text-44 text-center font-bold w-8 font-heading">
-              {/* {partnerQCS} */}?
-            </span>
-            <CustomerTextWithValue
-              messageType={MessageType.customerOrder}
-              value={partnerQCS}
-              achieved={orderProgressComplete}
-            />
+            {/* ------------&&&&&--------------- */}
+            <div className=" flex flex-row items-center">
+              <span className="text-44 text-center font-bold w-8 font-heading">
+                {resultAchievedPartnerQSC}
+              </span>
+              <CustomerTextWithValue
+                messageType={MessageType.customerOrder}
+                value={ruleLevelRequiredPartnerQCS}
+                achieved={
+                  resultLevelAchievedPartnerQCS >= ruleRequiredPartnerQCS
+                }
+              />
+            </div>
             <div
               className={classNames(
-                orderProgressComplete ? 'text-apple' : 'text-grey-3'
+                resultLevelAchievedPartnerQCS >= ruleRequiredPartnerQCS
+                  ? 'text-apple'
+                  : 'text-grey-3'
               )}
             >
               <GeneralTeams />
