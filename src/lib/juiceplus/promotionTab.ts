@@ -9,6 +9,8 @@ import type {
   RuleEvaluationStatus,
   Rewards,
   TrackEvaluationStatus,
+  TeamStructureResult,
+  TeamStructureRule as TeamStructureVolume,
 } from './sdk/partner-loyalty'
 
 export type CheckHoldRule = {
@@ -206,6 +208,8 @@ function transformPromotionalProductVolumeRuleResult(
 
 export type TeamStructureRule = {
   type: 'teamStructure'
+  requiredValue: TeamStructureVolume
+  achievedValue: TeamStructureResult
 }
 
 function transformTeamStructureRuleResult(
@@ -219,8 +223,18 @@ function transformTeamStructureRuleResult(
     )
   }
 
+  if (ruleResult.rule._type_ !== 'TeamStructureRule') {
+    throw new Error(`Could not transform into team structure rule`)
+  }
+
+  if (ruleResult.result._type_ !== 'TeamStructureResult') {
+    throw new Error(`Could not transform into team structure rule`)
+  }
+
   return {
     type: 'teamStructure',
+    requiredValue: ruleResult.rule,
+    achievedValue: ruleResult.result,
   }
 }
 
