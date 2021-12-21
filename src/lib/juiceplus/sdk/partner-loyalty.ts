@@ -125,22 +125,8 @@ export type PromotionalProductVolumeRule = TypeOf<
   typeof promotionalProductVolumeRule
 >
 
-export const overallTeamMemberRule = z.object({
-  _type_: z.literal('OverallTeamMemberRule'),
-  sequence: z.number(),
-  teamMembersRequired: z.number(),
-  teamMembersLevelRequired: z.number(),
-  shouldIncludeProgressPercentage: z.number().nullable(),
-  totalCustomerOrdersRequired: z.number().nullable(),
-})
-
-export type OverallTeamMemberRule = TypeOf<typeof overallTeamMemberRule>
-
 export const teamStructureRule = z.object({
   _type_: z.literal('TeamStructureRule'),
-  sequence: z.number(),
-  shouldIncludeProgressPercentage: z.number().nullable(),
-  overallTeamMemberRules: z.array(overallTeamMemberRule),
 })
 
 export type TeamStructureRule = TypeOf<typeof teamStructureRule>
@@ -220,19 +206,8 @@ export type PromotionalProductVolumeResult = TypeOf<
   typeof promotionalProductVolumeResult
 >
 
-export const overallTeamMemberResult = z.object({
-  _type_: z.literal('OverallTeamMemberResult'),
-  teamMembersAchieved: z.number(),
-  teamMembersLevelRequired: z.number(),
-  totalCustomerOrders: z.number().nullable(),
-  satisfyingFrontlinePartnerIds: z.number().array(),
-})
-
-export type OverallTeamMemberResult = TypeOf<typeof overallTeamMemberResult>
-
 export const teamStructureResult = z.object({
   _type_: z.literal('TeamStructureResult'),
-  overallTeamMemberResults: z.array(overallTeamMemberResult),
 })
 
 export type TeamStructureResult = TypeOf<typeof teamStructureResult>
