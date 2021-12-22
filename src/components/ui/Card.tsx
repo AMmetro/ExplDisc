@@ -1,8 +1,18 @@
+import classNames from 'classnames'
 import type {PropsWithChildren} from 'react'
 
-export function Card({children}: PropsWithChildren<unknown>) {
+type Props = PropsWithChildren<{
+  className?: string
+}>
+
+export function Card({children, className}: Props) {
   return (
-    <div className="bg-white shadow-menu overflow-hidden rounded-2xl">
+    <div
+      className={classNames(
+        'bg-white shadow-menu overflow-hidden rounded-2xl',
+        className
+      )}
+    >
       {children}
     </div>
   )

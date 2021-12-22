@@ -1,0 +1,20 @@
+query getPersons($size: Int, $criteria: PersonCriteriaInput, $page: Int = 0) {
+  results: getPersons(size: $size, criteria: $criteria, page: $page) {
+    data {
+      totalCount
+      nextPage
+      persons {
+        id
+        partnerId
+        firstName
+        lastName
+        imageUrl
+        homePhone
+        email
+      }
+    }
+    error {
+      ...JpError
+    }
+  }
+}

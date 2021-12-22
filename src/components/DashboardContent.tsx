@@ -3,6 +3,7 @@ import {parseISO} from 'date-fns'
 import type {CustomerSearchType} from '../lib/juiceplus/atd/sdk'
 import type {Actions, DashboardData} from '../lib/juiceplus/dashboard'
 import {assertOk} from '../lib/juiceplus/withError'
+import type {ActivePartner} from '../lib/user'
 import {DashboardOverviews} from './DashboardOverviews'
 import {DashboardPerformance} from './DashboardPerformance'
 import {DashboardThisMonth} from './DashboardThisMonth'
@@ -14,6 +15,7 @@ type Props = {
   customerSearchType: CustomerSearchType
   rank: number
   isPending: boolean
+  user: ActivePartner
 }
 
 export function DashboardContent({
@@ -23,6 +25,7 @@ export function DashboardContent({
   customerSearchType,
   rank,
   isPending,
+  user,
 }: Props) {
   assertOk(dashboard)
 
@@ -35,6 +38,7 @@ export function DashboardContent({
         kpis={dashboard.data}
         promotion={dashboard.data.promotion}
         rank={rank}
+        user={user}
       />
 
       <DashboardOverviews

@@ -5,12 +5,14 @@ import type {PromotionTabContent} from '../lib/juiceplus/promotionTab'
 import {transformEvaluationResult} from '../lib/juiceplus/promotionTab'
 import type {EvaluationResult} from '../lib/juiceplus/sdk/partner-loyalty'
 import {renderForTest} from '../lib/renderForTest'
+import {knownUsers} from '../mocks/factories/user'
 import {mockPromotionProgress} from '../mocks/handlers/partner-loyalty'
 import {DashboardPromotionContent} from './DashboardPromotionContent'
 
 describe('<DashboardPromotionContent />', () => {
   test('displays promotional volume section', () => {
     const promotion = mockPromotionTabContent()
+    const user = knownUsers['anne@example.com']
 
     if (!promotion.tracks.promotion.rules.promotionalProductVolume) {
       throw new Error(
@@ -23,6 +25,7 @@ describe('<DashboardPromotionContent />', () => {
         promotion={promotion}
         selectedTrack="promotion"
         onTrackSelected={noop}
+        user={user}
       />
     )
 
@@ -33,6 +36,7 @@ describe('<DashboardPromotionContent />', () => {
 
   test('displays orders section', () => {
     const promotion = mockPromotionTabContent()
+    const user = knownUsers['anne@example.com']
 
     const {rules} = promotion.tracks.promotion
     if (!rules.personalOrder && !rules.customerOrder) {
@@ -46,6 +50,7 @@ describe('<DashboardPromotionContent />', () => {
         promotion={promotion}
         selectedTrack="promotion"
         onTrackSelected={noop}
+        user={user}
       />
     )
 
@@ -56,6 +61,7 @@ describe('<DashboardPromotionContent />', () => {
 
   test('displays team section', () => {
     const promotion = mockPromotionTabContent()
+    const user = knownUsers['anne@example.com']
 
     if (!promotion.tracks.promotion.rules.teamStructure) {
       throw new Error(
@@ -68,6 +74,7 @@ describe('<DashboardPromotionContent />', () => {
         promotion={promotion}
         selectedTrack="promotion"
         onTrackSelected={noop}
+        user={user}
       />
     )
 

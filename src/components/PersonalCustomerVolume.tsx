@@ -14,7 +14,7 @@ export function PersonalCustomerVolume({rule}: Props) {
 
   return (
     <div className="flex flex-row">
-      <div className="text-14 text-grey-2 font-bold">
+      <div className="text-grey-2 text-13 leading-5 font-bold">
         <FormattedMessage
           id="523e03e4e7f7"
           defaultMessage="Min. {n} from own customers."

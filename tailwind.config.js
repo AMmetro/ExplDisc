@@ -1,8 +1,21 @@
 const {theme} = require('tailwindcss/defaultConfig')
+const plugin = require('tailwindcss/plugin')
 
 module.exports = {
   purge: ['./src/**/*.ts', './src/**/*.tsx'],
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [
+    require('@tailwindcss/forms'),
+    plugin(function ({addUtilities}) {
+      addUtilities({
+        '.scrollbar-none': {
+          'scrollbar-width': 'none',
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          },
+        },
+      })
+    }),
+  ],
   mode: 'jit',
   darkMode: false,
   theme: {

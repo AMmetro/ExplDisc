@@ -20,4 +20,12 @@ module.exports = {
     GRAPHQL_ENDPOINT,
     PARTNER_LOYALTY_API_HOST,
   },
+  async rewrites() {
+    return [
+      {
+        source: '/:country/:language/login/partner.:modifier',
+        destination: '/:country/:language/login/partner?modifier=:modifier',
+      },
+    ]
+  },
 }

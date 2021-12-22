@@ -10,7 +10,7 @@ export function TitleReward({reached}: Props) {
   return (
     <div
       className={classNames(
-        'rounded-3xl text-13 font-bold flex items-center w-full p-5',
+        'rounded-3xl text-13 font-bold flex flex-initial items-center w-full p-5',
         {
           'bg-apple-background': reached,
           'text-apple': reached,

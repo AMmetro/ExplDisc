@@ -36,7 +36,7 @@ export function PVSectionMaxVolumeText({
   value,
 }: PVSectionMaxVolumeText) {
   return (
-    <span className="font-normal text-grey-2 text-left text-14 my-2">
+    <span className="text-grey-2 text-13 leading-5">
       <FormattedMessage {...messages[messageType]} values={{value}} />
     </span>
   )
@@ -47,7 +47,7 @@ export function PVSectionMaxVolumeTextContainer({rule}: Props) {
 
   const {maxHouseholdPPVAllowedValue, maxPerLinePPVPercentageValue} = rule
   return (
-    <div className="grid grid-rows-2">
+    <>
       {maxHouseholdPPVAllowedValue && (
         <PVSectionMaxVolumeText
           messageType={MessageType.fromHousehold}
@@ -60,19 +60,17 @@ export function PVSectionMaxVolumeTextContainer({rule}: Props) {
             messageType={MessageType.fromEachLine}
             value={maxPerLinePPVPercentageValue}
           />
-          <div className="ml-3 my-2">
-            <PVTooltip
-              message={
-                <FormattedMessage
-                  id="21a227f2789f"
-                  defaultMessage="This only applies to Promotion track and not Express track."
-                  description="Title for the max volume per line tooltip"
-                />
-              }
-            />
-          </div>
+          <PVTooltip
+            message={
+              <FormattedMessage
+                id="21a227f2789f"
+                defaultMessage="This only applies to Promotion track and not Express track."
+                description="Title for the max volume per line tooltip"
+              />
+            }
+          />
         </div>
       )}
-    </div>
+    </>
   )
 }

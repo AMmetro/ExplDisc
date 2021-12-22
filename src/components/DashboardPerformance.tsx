@@ -5,6 +5,7 @@ import type {
   PromotionTab,
   PromotionTrackType,
 } from '../lib/juiceplus/promotionTab'
+import type {ActivePartner} from '../lib/user'
 import {DashboardPerformanceContent} from './DashboardPerformanceContent'
 import type {Selection} from './DashboardPerformanceTabs'
 import {DashboardPerformanceTabs} from './DashboardPerformanceTabs'
@@ -13,9 +14,10 @@ type Props = {
   rank: number
   kpis: Kpis
   promotion: PromotionTab
+  user: ActivePartner
 }
 
-export function DashboardPerformance({kpis, promotion, rank}: Props) {
+export function DashboardPerformance({kpis, promotion, rank, user}: Props) {
   const [selected, setSelected] = useState<Selection>('commission')
   const [selectedTrack, setSelectedTrack] =
     useState<PromotionTrackType>('promotion')
@@ -50,6 +52,7 @@ export function DashboardPerformance({kpis, promotion, rank}: Props) {
         rank={rank}
         selectedTrack={selectedTrack}
         onTrackSelected={setSelectedTrack}
+        user={user}
       />
     </div>
   )

@@ -7,6 +7,7 @@ import type {
   PromotionTab,
   PromotionTrackType,
 } from '../lib/juiceplus/promotionTab'
+import type {ActivePartner} from '../lib/user'
 import {ArrowRightLink} from './ArrowRightLink'
 import {DashboardCommissionInsight} from './DashboardCommissionInsight'
 import {DashboardPerformanceBonusInsight} from './DashboardPerformanceBonusInsight'
@@ -285,11 +286,12 @@ export type Props =
       promotion: PromotionTab
       selectedTrack: PromotionTrackType
       onTrackSelected(t: PromotionTrackType): void
+      user: ActivePartner
     }
 
 export function DashboardPerformanceContent(props: Props) {
   if (props.selected === 'promotion') {
-    const {selected, promotion, selectedTrack, onTrackSelected} = props
+    const {selected, promotion, selectedTrack, onTrackSelected, user} = props
 
     if (!promotion.visible) {
       throw new Error(
@@ -302,6 +304,7 @@ export function DashboardPerformanceContent(props: Props) {
         promotion={promotion}
         selectedTrack={selectedTrack}
         onTrackSelected={onTrackSelected}
+        user={user}
       />
     )
   }

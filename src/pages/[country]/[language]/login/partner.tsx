@@ -1,5 +1,3 @@
-/* eslint-disable react/display-name */
-
 import Head from 'next/head'
 import type {FormEvent} from 'react'
 import {useState} from 'react'
@@ -13,6 +11,7 @@ import {
   Password as PasswordIcon,
 } from '../../../../components/ui/icons'
 import {useRouter} from '../../../../lib/router'
+import type {Router} from '../../../../lib/router'
 
 const SKIP_LICENSE_RENEWAL_STORAGE_KEY = 'skipLicenseRenewal'
 
@@ -29,17 +28,21 @@ let messages = defineMessages({
   },
 })
 
+const urlModifiers = ['loggedOut', 'sessionExpired', 'resetPassword'] as const
+type UrlModifier = typeof urlModifiers[number]
+
 export default function PartnerLogin() {
   let intl = useIntl()
   let router = useRouter()
+  let urlModifier = parseUrlModifier(router)
   let [isSubmitting, setIsSubmitting] = useState(false)
   let [data, setData] = useState({
     username: '',
     password: '',
     rememberMe: false,
   })
-  let [errors, _setErrors] = useState({
-    login: '',
+  let [errors, setErrors] = useState({
+    login: false,
     username: '',
     password: '',
   })
@@ -55,7 +58,7 @@ export default function PartnerLogin() {
     setIsSubmitting(true)
     setTimeout(async () => {
       try {
-        await fetch('/api/authenticate', {
+        const response = await fetch('/api/authenticate', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -63,10 +66,17 @@ export default function PartnerLogin() {
           credentials: 'include',
           body: JSON.stringify(data),
         })
+        if (!response.ok) {
+          console.error(await response.json())
+          setErrors({...errors, login: true})
+          setIsSubmitting(false)
+          return
+        }
         localStorage.removeItem(SKIP_LICENSE_RENEWAL_STORAGE_KEY)
         await router.push('/portal')
       } catch (e) {
         console.error(e)
+        setErrors({...errors, login: true})
         setIsSubmitting(false)
       }
     }, 300)
@@ -117,7 +127,7 @@ export default function PartnerLogin() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="col-span-1 flex flex-col bg-white rounded-lg shadow p-6">
+                <div className="grid grid-cols-1 gap-5 self-start bg-white rounded-lg shadow p-6">
                   <h1 className="text-30 text-gray-700 font-bold text-center">
                     <FormattedMessage
                       id="4c0a0cc7cf2d"
@@ -126,23 +136,21 @@ export default function PartnerLogin() {
                     />
                   </h1>
 
-                  {errors.login ? (
-                    <>
-                      <div className="my-4" />
+                  {urlModifier && (
+                    <UrlModifierInfoMessage modifier={urlModifier} />
+                  )}
 
-                      <div className="bg-red-100 p-4 rounded-sm">
-                        <div className="text-14 font-light text-red-500">
-                          <FormattedMessage
-                            id="4b3e13ff9812"
-                            defaultMessage="The login credentials you used are not correct, please try again or reset your password. If issues persist please contact Partner Support."
-                            description="Error loging in"
-                          />
-                        </div>
+                  {errors.login && (
+                    <div className="bg-red-100 p-3 rounded-sm">
+                      <div className="text-13 text-error text-center">
+                        <FormattedMessage
+                          id="5621760fd7fd"
+                          defaultMessage="The login credentials you used are not correct, please try again or reset your password. If issues persist please contact Partner Support."
+                          description="Error logging in"
+                        />
                       </div>
-                    </>
-                  ) : null}
-
-                  <div className="my-4" />
+                    </div>
+                  )}
 
                   <form onSubmit={onSubmit}>
                     <div>
@@ -173,7 +181,7 @@ export default function PartnerLogin() {
                         />
                       </div>
                       {errors.username === 'usernameRequired' ? (
-                        <p className="mt-2 text-14 text-red-600">
+                        <p className="mt-2 text-14 text-error">
                           <FormattedMessage {...messages.usernameRequired} />
                         </p>
                       ) : null}
@@ -208,7 +216,7 @@ export default function PartnerLogin() {
                         />
                       </div>
                       {errors.password === 'passwordRequired' ? (
-                        <p className="mt-2 text-14 text-red-600">
+                        <p className="mt-2 text-14 text-error">
                           <FormattedMessage {...messages.passwordRequired} />
                         </p>
                       ) : null}
@@ -322,6 +330,55 @@ export default function PartnerLogin() {
   )
 }
 
+function isValidUrlModifier(modifier: string): modifier is UrlModifier {
+  return urlModifiers.includes(modifier as UrlModifier)
+}
+
+function parseUrlModifier(router: Router): UrlModifier | null {
+  const {
+    query: {modifier: urlModifierString},
+  } = router
+
+  if (
+    typeof urlModifierString !== 'string' ||
+    !isValidUrlModifier(urlModifierString)
+  ) {
+    return null
+  }
+
+  return urlModifierString
+}
+
+function UrlModifierInfoMessage({modifier}: {modifier: UrlModifier}) {
+  return (
+    <div className="bg-apple-background p-3 rounded-sm">
+      <div className="text-13 text-apple text-center">
+        {modifier === 'loggedOut' && (
+          <FormattedMessage
+            id="d18e58bd07f2"
+            defaultMessage="You have successfully logged out."
+            description="Successful logout message for login page"
+          />
+        )}
+        {modifier === 'resetPassword' && (
+          <FormattedMessage
+            id="21c802561acd"
+            defaultMessage="Please check your email for your password reset link."
+            description="Reset password message for login page"
+          />
+        )}
+        {modifier === 'sessionExpired' && (
+          <FormattedMessage
+            id="22da92f95afd"
+            defaultMessage="Your session has expired. Please log in again."
+            description="Session expired message for login page"
+          />
+        )}
+      </div>
+    </div>
+  )
+}
+
 const navigation = {
   links: [
     {
@@ -365,7 +422,7 @@ const navigation = {
   social: [
     {
       name: 'Facebook',
-      href: '#',
+      href: 'https://www.facebook.com/juiceplus.us',
       icon: (props: React.SVGProps<SVGSVGElement>) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
@@ -378,7 +435,7 @@ const navigation = {
     },
     {
       name: 'Instagram',
-      href: '#',
+      href: 'https://www.instagram.com/juiceplus_us',
       icon: (props: React.SVGProps<SVGSVGElement>) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
@@ -390,8 +447,17 @@ const navigation = {
       ),
     },
     {
+      name: 'Youtube',
+      href: 'https://www.youtube.com/user/OfficialJuicePlus',
+      icon: (props: React.SVGProps<SVGSVGElement>) => (
+        <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
+          <path d="M22.5048124,6.40557992 C22.9752071,8.12365984 22.9572983,11.7048915 22.9572983,11.7048915 C22.9572983,11.7048915 22.9572983,15.2678637 22.5049799,16.9861111 C22.2516904,17.9265656 21.5102492,18.6681743 20.5696272,18.9212963 C18.8513798,19.3735989 11.9785575,19.3735989 11.9785575,19.3735989 C11.9785575,19.3735989 5.12365984,19.3735989 3.38748782,18.9033717 C2.44686585,18.6500822 1.7054246,17.9084734 1.45213512,16.968019 C1,15.2678637 1,11.6867995 1,11.6867995 C1,11.6867995 1,8.12365984 1.45213512,6.40557992 C1.70525704,5.46512547 2.46495796,4.7054246 3.38732031,4.45230263 C5.10556774,4 11.97839,4 11.97839,4 C11.97839,4 18.8513798,4 20.5696272,4.47022723 C21.5100816,4.7235167 22.2516904,5.46495796 22.5048124,6.40557992 Z M9.79008285,14.9785575 L15.5053454,11.6867995 L9.79008285,8.39504142 L9.79008285,14.9785575 Z" />
+        </svg>
+      ),
+    },
+    {
       name: 'Twitter',
-      href: '#',
+      href: 'https://twitter.com/juiceplus',
       icon: (props: React.SVGProps<SVGSVGElement>) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
@@ -400,10 +466,9 @@ const navigation = {
     },
   ],
   legal: [
-    {name: 'Terms of Use', href: '#'},
-    {name: 'Privacy Policy', href: '#'},
-    {name: 'Return Policy', href: '#'},
-    {name: 'Terms of Service', href: '#'},
+    {name: 'Terms of Use', href: '/terms-of-use'},
+    {name: 'Privacy Policy', href: '/privacy-cookie-policy'},
+    {name: 'Return Policy', href: '/product-return-policy'},
   ],
 }
 

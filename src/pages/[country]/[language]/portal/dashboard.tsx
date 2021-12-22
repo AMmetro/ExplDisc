@@ -98,6 +98,7 @@ export default function DashboardIndex({
                 customerSearchType={customerSearchType}
                 rank={user.rank.rank}
                 isPending={false}
+                user={user}
               />
             </div>
           </div>

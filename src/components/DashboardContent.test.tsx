@@ -4,6 +4,7 @@ import {cloneDeep} from 'lodash'
 import {CustomerSearchType} from '../lib/juiceplus/atd/sdk'
 import {parser} from '../lib/juiceplus/dashboard'
 import {renderForTest} from '../lib/renderForTest'
+import {knownUsers} from '../mocks/factories/user'
 import {
   mockDashboard,
   mockStats,
@@ -23,6 +24,7 @@ describe('<DashboardContent />', () => {
     customerSearchType: CustomerSearchType.Direct,
     rank: 1,
     isPending: false,
+    user: knownUsers[0],
   }
 
   test('show commission and promotion for rank 1', () => {

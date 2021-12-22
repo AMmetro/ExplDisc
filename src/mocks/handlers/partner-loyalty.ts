@@ -112,47 +112,9 @@ const randomRules = () => [
   {
     rule: {
       _type_: 'TeamStructureRule',
-      sequence: 2,
-      shouldIncludeProgressPercentage: null,
-      overallTeamMemberRules: [
-        {
-          _type_: 'OverallTeamMemberRule',
-          sequence: 0,
-          shouldIncludeProgressPercentage: null,
-          teamMembersRequired: 1,
-          teamMembersLevelRequired: 2,
-          totalCustomerOrdersRequired: null,
-        },
-        {
-          _type_: 'OverallTeamMemberRule',
-          sequence: 1,
-          shouldIncludeProgressPercentage: null,
-          teamMembersRequired: 2,
-          teamMembersLevelRequired: 3,
-          totalCustomerOrdersRequired: null,
-        },
-      ],
-      maxTreeDepthEvaluated: null,
-      separateDownlines: 3,
     },
     result: {
       _type_: 'TeamStructureResult',
-      overallTeamMemberResults: [
-        {
-          _type_: 'OverallTeamMemberResult',
-          teamMembersAchieved: 1,
-          teamMembersLevelRequired: 2,
-          totalCustomerOrders: null,
-          satisfyingFrontlinePartnerIds: [491870],
-        },
-        {
-          _type_: 'OverallTeamMemberResult',
-          teamMembersAchieved: 1,
-          teamMembersLevelRequired: 3,
-          totalCustomerOrders: null,
-          satisfyingFrontlinePartnerIds: [491870],
-        },
-      ],
     },
     ruleEvaluationStatus: randomRuleEvaluationStatus(),
     ruleProgressPercentage: randomPercent(),
@@ -186,6 +148,15 @@ export const mockPromotionProgress = () => ({
           valueTypeSymbol: '$',
           currencyCode: 'USD',
         },
+        // ------- новый обект ----------------
+        {
+          rewardType: 'Sponsor Reward Payout',
+          rewardValue: 100,
+          valueType: 'Monetary',
+          valueTypeSymbol: '$',
+          currencyCode: 'USD',
+        },
+        // ------------------------------------
         {
           rewardType: 'Conference Ticket',
           rewardValue: null,

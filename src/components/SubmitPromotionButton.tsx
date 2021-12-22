@@ -6,6 +6,7 @@ import type {
   PromotionTabContent,
   PromotionTrackType,
 } from '../lib/juiceplus/promotionTab'
+import type {ActivePartner} from '../lib/user'
 import {WhoHelpedModal} from './WhoHelpedModal'
 import {Check} from './ui/icons'
 
@@ -13,6 +14,7 @@ type Props = {
   submitted: boolean
   setSubmitted(t: boolean): void
   promotion: PromotionTabContent
+  user: ActivePartner
   selectedTrack: PromotionTrackType
   expressPromotion: boolean
 }
@@ -21,6 +23,7 @@ export function SubmitPromotionButton({
   submitted,
   setSubmitted,
   promotion,
+  user,
   selectedTrack,
   expressPromotion,
 }: Props) {
@@ -40,9 +43,13 @@ export function SubmitPromotionButton({
 
   const [disabled, setDisabled] = useState(false)
 
-  let submitWithHelp = (name: string, id: number) => {
-    console.log('submit api with sponsor ' + name + ' ' + id)
-    //we will pass name and id from the text fields to here and handle submission API call from here with those values
+  let submitWithHelp = (name: string, id: string) => {
+    if (name.length < 3 || name === null) {
+      console.log('error')
+      console.error('Name must have value')
+    }
+
+    console.log('submit api with ' + name + ' ' + id)
     setShowModal(false)
     setSubmitted(true)
     setDisabled(true)
@@ -61,6 +68,7 @@ export function SubmitPromotionButton({
     if (hasSponsorReward) {
       setShowModal(true)
     } else {
+      //TODO: remove these lines and add real API call
       setSubmitted(true)
       setDisabled(true)
       console.log('Call Submission API')
@@ -74,7 +82,7 @@ export function SubmitPromotionButton({
       <button onClick={submit} disabled={disabled}>
         <div
           className={classNames(
-            'text-16 text-white rounded-full px-5 py-2 flex items-center',
+            'text-16 text-white text-center w-min rounded-full h-10 flex items-center justify-center font-bold font-heading p-2',
             submitted ? 'bg-apple' : 'bg-orange'
           )}
         >
@@ -88,9 +96,13 @@ export function SubmitPromotionButton({
           </div>
         </div>
       </button>
-      {showModal ? (
-        <WhoHelpedModal setShowModal={setShowModal} submit={submitWithHelp} />
-      ) : null}
+      {showModal && (
+        <WhoHelpedModal
+          setShowModal={setShowModal}
+          submit={submitWithHelp}
+          user={user}
+        />
+      )}
     </div>
   )
 }

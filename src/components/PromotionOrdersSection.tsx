@@ -15,10 +15,12 @@ type Props = {
   }
   rank: number
 }
+
 enum MessageType {
   personalOrder = 'personalOrder',
   customerOrder = 'customerOrder',
 }
+
 type OrderTextWithValue = {
   messageType: MessageType
   value?: string | number
@@ -148,7 +150,7 @@ export function PromotionOrdersSection({rules, rank}: Props) {
                 orderProgressComplete ? 'text-apple' : 'text-grey-3'
               )}
             >
-              <Profile className="text-24" />
+              <Profile className="text-20" />
             </div>
           </div>
         </div>
