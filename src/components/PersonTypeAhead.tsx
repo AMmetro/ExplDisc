@@ -3,6 +3,7 @@ import Downshift from 'downshift'
 import {debounce} from 'lodash'
 import React, {useMemo, useState} from 'react'
 
+import {SearchBig} from '../../src/components/ui/icons/'
 import type {Person} from '../lib/juiceplus/persons'
 import type {AuthenticatedUser} from '../lib/user'
 import {Spinner} from './Spinner'
@@ -157,7 +158,6 @@ function PersonTypeAhead({
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedChangeHandler = useMemo(() => debounce(handleInput, 500), [])
-
   return (
     <div className="w-full">
       <Downshift
@@ -174,9 +174,12 @@ function PersonTypeAhead({
             )}
             {!loading && (
               <>
-                <div className="relative">
+                <div className="relative my-6">
+                  <SearchBig
+                    className={'text-orange absolute top-2 mx-[500px]'}
+                  />
                   <input
-                    className="w-full border-grey-4 rounded focus:outline-none font-body focus:ring-1 focus:ring-apple focus:border-transparent hover:border-apple"
+                    className="w-full px-12 border-orange border-2 rounded-3xl focus:outline-none font-body focus:ring-1 focus:ring-apple focus:border-transparent hover:border-apple"
                     type="text"
                     {...getInputProps({
                       placeholder: 'Enter Partner name',

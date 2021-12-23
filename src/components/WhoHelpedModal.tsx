@@ -51,31 +51,12 @@ export function WhoHelpedModal({setShowModal, submit, user}: Props) {
             </div>
             <div className="px-[30px] pt-5 pb-[30px] flex-auto text-16 leading-8 font-body text-grey-1">
               <div className="flex flex-col text-grey-1 text-13">
-                <FormattedMessage
-                  id="365d7e63eb0e"
-                  defaultMessage="Partner Name"
-                  description="Who helped partner name"
-                />
                 <PersonTypeAhead
                   sponsor={user.sponsor}
                   partnerId={user.partnerId}
                   setPartnerId={setPartnerID}
                   setPartner={setPartner}
                   setSearching={setSearching}
-                />
-              </div>
-              <div className="flex flex-col text-grey-1 text-13 pt-1">
-                <FormattedMessage
-                  id="9fc5ba091df9"
-                  defaultMessage="Partner ID"
-                  description="Who helped partner ID"
-                />
-                <input
-                  type="text"
-                  className="border-grey-4 rounded focus:outline-none focus:ring-1 focus:ring-apple focus:border-transparent hover:border-apple"
-                  onChange={(e) => setPartnerID(e.target.value)}
-                  required={true}
-                  value={partnerID}
                 />
               </div>
             </div>

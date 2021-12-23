@@ -148,7 +148,6 @@ export const mockPromotionProgress = () => ({
           valueTypeSymbol: '$',
           currencyCode: 'USD',
         },
-        // ------- новый обект ----------------
         {
           rewardType: 'Sponsor Reward Payout',
           rewardValue: 100,
@@ -156,7 +155,6 @@ export const mockPromotionProgress = () => ({
           valueTypeSymbol: '$',
           currencyCode: 'USD',
         },
-        // ------------------------------------
         {
           rewardType: 'Conference Ticket',
           rewardValue: null,
