@@ -57,10 +57,10 @@ let meFactory = Factory.define<Me>(({sequence: id}) => {
   }
 })
 
-export let me = graphql.query('me', (req, res, ctx) => {
+export let myme = graphql.query('myme', (req, res, ctx) => {
   let token = req.cookies['auth-token']
 
-  console.log('------------------me11111111111-------------------------')
+  console.log('------------------myme22222222222222222-----------------------')
 
   if (!token || ['null', 'undefined'].includes(token)) {
     return res(

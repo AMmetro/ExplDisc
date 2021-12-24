@@ -174,7 +174,7 @@ function PersonTypeAhead({
             )}
             {!loading && (
               <>
-                <div className="relative my-6">
+                <div className="relative">
                   <SearchBig
                     className={'text-orange absolute top-2 mx-[500px]'}
                   />
